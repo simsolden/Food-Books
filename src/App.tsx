@@ -1,21 +1,48 @@
 import React, { Suspense, lazy } from 'react';
-import { Provider } from 'react-redux';
-import { Route, Router, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import store from './store/index';
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { State } from './store';
+import Toolbar from './components/common/navigation/Toolbar/Toolbar';
 
-const RecipesList = lazy(() => import('./components/modules/recipe/recipesList/RecipesList'));
+const Home = lazy(() => import('./containers/home/Home'));
+const Categories = lazy(() => import('./containers/categories/Categories'));
+const MyRecipes = lazy(() => import('./containers/my-recipes/MyRecipes'));
+const Planning = lazy(() => import('./containers/planning/Planning'));
 
-const App = () => (
-  <Provider store={store}>
-    <Router history={createBrowserHistory()}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route exact path="/" component={RecipesList} />
-        </Switch>
-      </Suspense>
-    </Router>
-  </Provider>
-);
+interface Props {
+  isAuthenticated: boolean;
+}
 
-export default App;
+const App: React.FC<Props> = ({ isAuthenticated }) => {
+  let routes = (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/categories" exact component={Categories} />
+      <Redirect to="/" />
+    </Switch>
+  );
+  if (isAuthenticated) {
+    routes = (
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/categories" exact component={Categories} />
+        <Route path="/mes-recettes" exact component={MyRecipes} />
+        <Route path="/planning" exact component={Planning} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
+
+  return (
+    <>
+      <Toolbar />
+      <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+    </>
+  );
+};
+
+const mapState = (state: State) => ({
+  isAuthenticated: state.user.isAuthenticated,
+});
+
+export default withRouter(connect(mapState)(App));
