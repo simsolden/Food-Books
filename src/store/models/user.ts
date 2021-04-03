@@ -1,11 +1,13 @@
 import { User } from '../../common/types/user';
 
 type State = {
-  user: User;
+  isAuthenticated: boolean;
 };
 
 const userInfo = {
-  state: {} as State,
+  state: {
+    isAuthenticated: true,
+  } as State,
   reducers: {
     updateUserInfo: (state: State, user: User) => ({ ...state, user }),
   },
