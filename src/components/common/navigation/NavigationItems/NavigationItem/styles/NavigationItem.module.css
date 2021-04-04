@@ -1,0 +1,75 @@
+/* .navigationItem a {
+  text-decoration: none;
+  color: rgb(241, 241, 236);
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s;
+  position: relative;
+  letter-spacing: 0.05rem;
+} */
+
+.navigationItem a {
+  color: #fff;
+  text-decoration: none;
+  font: Roboto;
+  margin: 0px 10px;
+  padding: 10px 10px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.navigationItem a:before,
+.navigationItem a:after {
+  position: absolute;
+  opacity: 0;
+  width: 0%;
+  height: 0.5px;
+  content: '';
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.navigationItem a:before {
+  right: 0px;
+  top: 0px;
+}
+
+.navigationItem a:after {
+  left: 0px;
+  bottom: 0px;
+}
+
+.navigationItem a:hover:after,
+.navigationItem a.active:after,
+.navigationItem a.active:before {
+  opacity: 1;
+  width: 100%;
+}
+/* 
+.navigationItem a:hover,
+.logger a:hover {
+  background-color: rgb(241, 241, 236);
+  color: #843939;
+}
+
+.navigationItem a:active,
+.navigationItem a.active,
+.logger a:active {
+  border: 0.15rem solid rgb(241, 241, 236);
+}
+*/
+.logger a {
+  text-decoration: none;
+  color: rgb(241, 241, 236);
+  background-color: #986959;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 1px 5px #352e2e80;
+}
+
+.logger:hover {
+  transform: scale(1.025);
+}

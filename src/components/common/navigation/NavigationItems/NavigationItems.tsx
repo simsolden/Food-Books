@@ -1,25 +1,29 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import classes from './styles/NavigationItems.module.css';
-
 interface Props {
   isAuthenticated: boolean;
 }
 
 const navigationItems: React.FC<Props> = ({ isAuthenticated }) => {
   return (
-    <ul className={classes.NavigationItems}>
+    <ul className={classes.navigationItems}>
       {isAuthenticated && (
         <>
-          <NavigationItem link="/mes-recettes">Mes recettes</NavigationItem>
-          <NavigationItem link="/planning">Mon Planning</NavigationItem>
+          <NavigationItem link="/mes-recettes">MES RECETTES</NavigationItem>
+          <NavigationItem link="/planning">MON PLANNING</NavigationItem>
         </>
       )}
-      <NavigationItem link="/categories">Catégories</NavigationItem>
+      <NavigationItem link="/recettes-populaires/">RECETTES POPULAIRES</NavigationItem>
+      <NavigationItem link="/categories">CATÉGORIES</NavigationItem>
       {isAuthenticated ? (
-        <NavigationItem link="/logout">Log out</NavigationItem>
+        <NavigationItem isLogger link="/logout">
+          DÉCONNEXION
+        </NavigationItem>
       ) : (
-        <NavigationItem link="/login">Log in</NavigationItem>
+        <NavigationItem isLogger link="/login">
+          CONNEXION
+        </NavigationItem>
       )}
     </ul>
   );
