@@ -11,11 +11,11 @@ interface Props {
 
 const toolbar: React.FC<Props> = ({ isAuth }) => {
   return (
-    <header className={classes.Toolbar}>
-      <div className={classes.Logo}>
+    <header className={classes.toolbar}>
+      <div className={classes.logo}>
         <Logo />
       </div>
-      <nav className={classes.DesktopOnly}>
+      <nav className={classes.desktopOnly}>
         <NavigationItems isAuthenticated={isAuth} />
       </nav>
     </header>
