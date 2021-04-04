@@ -1,0 +1,9 @@
+.logo {
+  box-sizing: border-box;
+  height: 80%;
+  margin-left: 1rem;
+}
+
+.logo img {
+  height: 3rem;
+}
