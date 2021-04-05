@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './styles/RecipesList.module.css';
 
-import Recipe from '../Recipe';
+import Recipe from '../singleRecipe/Recipe';
 import Filters from '../filters/Filters';
 
 interface Props {}
