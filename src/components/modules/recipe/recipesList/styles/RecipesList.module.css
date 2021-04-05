@@ -1,5 +1,11 @@
+.recipesPage {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
 .recipeList {
-  margin: 1rem auto;
+  margin-left: 1rem;
   display: flex;
   flex-direction: column;
   width: fit-content;
