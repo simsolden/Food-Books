@@ -4,9 +4,10 @@ import classes from './styles/Recipe.module.css';
 interface Props {
   title: string;
   description: string;
+  ingredientsList: string;
 }
 
-const Recipe: React.FC<Props> = ({ title, description }) => {
+const Recipe: React.FC<Props> = ({ title, description, ingredientsList }) => {
   return (
     <div className={classes.recipe}>
       <img src="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg" alt="Tacos" />
@@ -17,6 +18,7 @@ const Recipe: React.FC<Props> = ({ title, description }) => {
           <p className={classes.score}>4,6/5 sur 105 votes</p>
         </div>
         <p>{description}</p>
+        <p>Ingrédients: {ingredientsList}</p>
       </div>
     </div>
   );
