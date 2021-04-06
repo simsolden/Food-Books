@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './styles/Types.module.css';
+import classes from '../styles/Inputs.module.css';
 
 interface Props {
   onChangeType: (event: string) => void;
