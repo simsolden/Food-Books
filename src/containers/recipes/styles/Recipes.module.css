@@ -1,0 +1,41 @@
+.recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  margin: auto;
+  width: fit-content;
+  margin-top: 2rem;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addRecipe {
+  background: #e9aa45;
+  color: white;
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  margin-left: 1rem;
+}
+
+.recipes button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+.recipes button:active {
+  cursor: pointer;
+  transform: scale(1);
+}

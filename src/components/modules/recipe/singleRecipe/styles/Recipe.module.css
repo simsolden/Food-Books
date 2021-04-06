@@ -7,7 +7,13 @@
   display: flex;
 }
 
+.recipe a {
+  text-decoration: none;
+  color: black;
+}
+
 h2 {
+  font-weight: 400;
   margin: 0.5rem 0 0 0;
 }
 
@@ -22,6 +28,7 @@ h2 {
 
 .rating .score {
   color: grey;
+  margin-top: 0.1rem;
 }
 
 .recipe img {
@@ -31,8 +38,4 @@ h2 {
   object-fit: cover;
   margin-right: 1rem;
   transition: 0.2s all;
-}
-
-.recipe img:hover {
-  transform: scale(2);
 }

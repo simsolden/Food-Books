@@ -1,14 +1,14 @@
 .recipesPage {
   display: flex;
-  margin-top: 2rem;
+  margin-top: 1rem;
   justify-content: center;
 }
 
 .recipeList {
-  margin-left: 1rem;
   display: flex;
   flex-direction: column;
   width: fit-content;
   border-radius: 1rem;
   background-color: white;
+  margin-left: 1rem;
 }
