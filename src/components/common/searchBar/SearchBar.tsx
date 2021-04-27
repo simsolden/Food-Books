@@ -1,12 +1,26 @@
-import React from 'react';
-// import classes from './SearchBar.module.css'
+import { useStyles, CssTextField } from './styles/MUIstyles';
+import React, { useState } from 'react';
 
 interface Props {
-  onChange: () => void;
+  onSubmit: (input: string) => void;
 }
 
-const SearchBar: React.FC<Props> = (props) => {
-  return <div className=""></div>;
+const SearchBar: React.FC<Props> = ({ onSubmit }) => {
+  const classes = useStyles();
+
+  let [input, setInput] = useState('');
+
+  return (
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={() => onSubmit(input)}>
+      <CssTextField
+        id="custom-css-outlined-input"
+        label="Rechercher..."
+        variant="outlined"
+        style={{ backgroundColor: 'white' }}
+        onChange={(event) => setInput(event.target.value)}
+      />
+    </form>
+  );
 };
 
 export default SearchBar;
