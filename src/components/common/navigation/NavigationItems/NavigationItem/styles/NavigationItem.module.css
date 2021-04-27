@@ -38,6 +38,7 @@
 }
 
 .logger a {
+  border-radius: 2px;
   text-decoration: none;
   color: rgb(241, 241, 236);
   background-color: #986959;

@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './styles/RecipesList.module.css';
 
-import Recipe from '../singleRecipe/Recipe';
-import Filters from '../filters/Filters';
+import Recipe from '../../single-recipe/components/Recipe';
+import Filters from '../../filters/components/Filters';
 
 interface Props {}
 

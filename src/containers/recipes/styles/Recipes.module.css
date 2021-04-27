@@ -1,24 +1,36 @@
+body {
+  padding-top: 7rem;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)),
+    url('../../../assets/food_background.jpg');
+  background-attachment: scroll;
+  background-size: cover;
+}
+
 .recipes {
   display: flex;
   flex-direction: column;
   align-items: space-around;
   margin: auto;
   width: fit-content;
-  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 5px;
+  background-color: rgb(241, 236, 245);
 }
 
 .top {
   width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .addRecipe {
-  background: #e9aa45;
+  background: #bc5252;
+  margin: auto;
   color: white;
   height: 2.5rem;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   font-size: 1rem;
   font-family: Roboto;
   font-weight: 350;
@@ -26,12 +38,11 @@
   outline: none;
   border: none;
   transition: 0.2s all;
-  margin-left: 1rem;
 }
 
 .recipes button:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scale(1.025);
   filter: brightness(1.05);
 }
 
