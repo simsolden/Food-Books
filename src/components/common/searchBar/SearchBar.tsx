@@ -16,7 +16,7 @@ const SearchBar: React.FC<Props> = ({ onSubmit }) => {
         id="custom-css-outlined-input"
         label="Rechercher..."
         variant="outlined"
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: 'white', borderRadius: '5px' }}
         onChange={(event) => setInput(event.target.value)}
       />
     </form>
