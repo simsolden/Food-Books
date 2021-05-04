@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../../../assets/logo-white.png';
-import classes from './styles/Logo.module.css';
+import logo from '../../assets/logo-white.png';
+import classes from './Logo.module.css';
 
 interface Props {}
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from './styles/Toolbar.module.css';
+import classes from './Toolbar.module.css';
 import Logo from '../../logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import { State } from '../../../../store';
+import { State } from '../../../store';
 import { connect } from 'react-redux';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
-import classes from './styles/NavigationItems.module.css';
+import classes from './NavigationItems.module.css';
 interface Props {
   isAuthenticated: boolean;
 }

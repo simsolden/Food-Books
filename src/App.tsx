@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { State } from './store';
-import Toolbar from './components/common/navigation/Toolbar/Toolbar';
+import Toolbar from './components/navigation/Toolbar/Toolbar';
 import Home from './containers/home/Home';
 
 const Categories = lazy(() => import('./containers/categories/Categories'));

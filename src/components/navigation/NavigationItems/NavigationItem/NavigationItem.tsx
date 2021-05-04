@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import classes from './styles/NavigationItem.module.css';
+import classes from './NavigationItem.module.css';
 
 interface Props {
   isLogger?: boolean;

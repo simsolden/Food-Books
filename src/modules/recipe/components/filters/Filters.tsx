@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Types from './types/Types';
-import TypeFactory from '../factories/TypeFactory';
+import TypeFactory from './factories/TypeFactory';
 import classes from './styles/Filters.module.css';
-import PrepTimeFactory from '../factories/PrepTimeFactory';
+import PrepTimeFactory from './factories/PrepTimeFactory';
 import PrepTime from './prepTime/PrepTime';
 import Difficulty from './difficulty/Difficulty';
-import DifficultyFactory from '../factories/DifficultyFactory';
+import DifficultyFactory from './factories/DifficultyFactory';
 
 interface Props {}
 
