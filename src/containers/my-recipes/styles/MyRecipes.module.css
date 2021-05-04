@@ -1,5 +1,6 @@
 .container {
   padding-top: 7rem;
+  padding-bottom: 2rem;
 }
 
 .recipes {
@@ -18,7 +19,7 @@
   margin: auto;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .addRecipe {
