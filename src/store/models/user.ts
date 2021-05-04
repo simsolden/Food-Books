@@ -1,4 +1,4 @@
-import { User } from '../../common/types/user';
+import { User } from '../../common';
 
 type State = {
   isAuthenticated: boolean;
