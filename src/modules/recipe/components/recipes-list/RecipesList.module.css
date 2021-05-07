@@ -14,3 +14,10 @@
   margin-left: 1rem;
   padding-bottom: 1rem;
 }
+
+@media screen and (max-width: 850px) {
+  .recipeList {
+    width: 100%;
+    margin-left: 0;
+  }
+}
