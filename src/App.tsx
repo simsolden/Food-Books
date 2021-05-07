@@ -2,8 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { State } from './store';
-import Toolbar from './components/navigation/Toolbar/Toolbar';
 import Home from './containers/home/Home';
+import Layout from './containers/hoc/Layout';
 
 const Categories = lazy(() => import('./containers/categories/Categories'));
 const MyRecipes = lazy(() => import('./containers/my-recipes/MyRecipes'));
@@ -38,8 +38,9 @@ const App: React.FC<Props> = ({ isAuthenticated }) => {
 
   return (
     <>
-      <Toolbar />
-      <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+      <Layout>
+        <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+      </Layout>
     </>
   );
 };
