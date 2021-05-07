@@ -1,0 +1,45 @@
+.sideDrawer {
+  position: fixed;
+  width: 20rem;
+  max-width: 70%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  z-index: 200;
+  background-color: #8b4242;
+  padding: 32px 16px;
+  transition: transform 0.3s ease-out;
+}
+
+.sideDrawer li {
+  margin: auto;
+}
+
+.sideDrawer ul {
+  padding: 0;
+}
+
+.sideDrawer nav,
+ul {
+  height: 90%;
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.close {
+  transform: translateX(100%);
+}
+
+.logo {
+  margin-top: 2rem;
+  margin-left: -1rem;
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .sideDrawer {
+    display: none;
+  }
+}
