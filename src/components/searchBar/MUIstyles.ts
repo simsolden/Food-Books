@@ -4,8 +4,8 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       '& > *': {
-        width: '52vw',
-        marginLeft: '1rem',
+        width: '100%',
+        marginRight: '1rem',
       },
     },
   })
