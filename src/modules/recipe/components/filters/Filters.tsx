@@ -6,10 +6,14 @@ import PrepTimeFactory from './factories/PrepTimeFactory';
 import PrepTime from './prepTime/PrepTime';
 import Difficulty from './difficulty/Difficulty';
 import DifficultyFactory from './factories/DifficultyFactory';
+import Backdrop from '../../../../components/backdrop/Backdrop';
 
-interface Props {}
+interface Props {
+  show: boolean;
+  closed: () => void;
+}
 
-const Filters: React.FC<Props> = (props) => {
+const Filters: React.FC<Props> = ({ show, closed }) => {
   const [types] = useState(TypeFactory.create());
   const [prepTime] = useState(PrepTimeFactory.create());
   const [difficulty] = useState(DifficultyFactory.create());
@@ -29,13 +33,23 @@ const Filters: React.FC<Props> = (props) => {
     difficulty[event] = !difficulty[event];
   };
 
+  let attachedClasses = [classes.filters, classes.close];
+
+  if (show) {
+    attachedClasses = [classes.filters, classes.open];
+  }
+
   return (
-    <div className={classes.filters}>
-      <Types onChangeType={handleChangeType} /> <br />
-      <PrepTime onChangePrepTime={handleChangePrepTime} /> <br />
-      <Difficulty onChangeDifficulty={handleChangeDifficulty} /> <br />
-      <h2>CATÉGORIES</h2> <hr />
-    </div>
+    <>
+      <Backdrop show={show} clicked={closed} />
+      <div className={attachedClasses.join(' ')}>
+        <Types onChangeType={handleChangeType} /> <br />
+        <PrepTime onChangePrepTime={handleChangePrepTime} /> <br />
+        <Difficulty onChangeDifficulty={handleChangeDifficulty} /> <br />
+        <h2>CATÉGORIES</h2> <hr />
+        <button title="Appliquer les filtres" className={classes.applyFiltersButton}>Appliquer</button>
+      </div>
+    </>
   );
 };
 

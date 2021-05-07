@@ -7,3 +7,53 @@
   font-family: Rokkitt;
   font-weight: 600;
 }
+
+.applyFiltersButton {
+  background: #cb6b6b;
+  color: white;
+  width: 100%;
+  padding: 0 1.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
+.filter button:hover {
+  transform: scale(1.025);
+  filter: brightness(1.05);
+}
+
+.filters button:active {
+  transform: scale(1);
+}
+
+@media screen and (max-width: 850px) {
+  .filters {
+    position: fixed;
+    top: 5rem;
+    right: 0;
+    z-index: 100;
+    transform: translateX(100%);
+    background-color: white;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    height: 100%;
+    font-family: Rokkitt;
+    font-weight: 600;
+    transition: 0.3s ease-out;
+  }
+
+  .open {
+    transform: translateX(0);
+  }
+
+  .close {
+    transform: translateX(100%);
+  }
+}
