@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 500;
+  z-index: 50;
   background-color: #8b4242;
   display: flex;
   justify-content: space-between;
@@ -12,4 +12,10 @@
 
 .desktopOnly {
   width: 80%;
+}
+
+@media (max-width: 1200px) {
+  .desktopOnly {
+    display: none;
+  }
 }

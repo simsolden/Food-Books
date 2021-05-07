@@ -2,14 +2,14 @@ import React from 'react';
 import classes from './Toolbar.module.css';
 import Logo from '../../logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import { State } from '../../../store';
-import { connect } from 'react-redux';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 interface Props {
   isAuth: boolean;
+  open: () => void;
 }
 
-const toolbar: React.FC<Props> = ({ isAuth }) => {
+const Toolbar: React.FC<Props> = ({ isAuth, open }) => {
   return (
     <header className={classes.toolbar}>
       <div className={classes.logo}>
@@ -18,12 +18,9 @@ const toolbar: React.FC<Props> = ({ isAuth }) => {
       <nav className={classes.desktopOnly}>
         <NavigationItems isAuthenticated={isAuth} />
       </nav>
+      <DrawerToggle open={open} />
     </header>
   );
 };
 
-const mapState = (state: State) => ({
-  isAuth: state.user.isAuthenticated,
-});
-
-export default connect(mapState)(toolbar);
+export default Toolbar;
