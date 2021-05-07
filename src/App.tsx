@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { State } from './store';
 import Home from './containers/home/Home';
@@ -10,11 +10,9 @@ const MyRecipes = lazy(() => import('./containers/my-recipes/MyRecipes'));
 const Recipes = lazy(() => import('./containers/recipes/Recipes'));
 const Planning = lazy(() => import('./containers/planning/Planning'));
 
-interface Props {
-  isAuthenticated: boolean;
-}
+const App: React.FC = () => {
+  const isAuthenticated = useSelector((state: State) => state.user.isAuthenticated);
 
-const App: React.FC<Props> = ({ isAuthenticated }) => {
   let routes = (
     <Switch>
       <Route path="/" exact component={Home} />
@@ -45,8 +43,4 @@ const App: React.FC<Props> = ({ isAuthenticated }) => {
   );
 };
 
-const mapState = (state: State) => ({
-  isAuthenticated: state.user.isAuthenticated,
-});
-
-export default withRouter(connect(mapState)(App));
+export default withRouter(App);
