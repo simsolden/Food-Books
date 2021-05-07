@@ -4,12 +4,16 @@
   justify-content: space-evenly;
   align-items: center;
   background-color: rgba(106, 50, 50, 0.15);
-  padding-top: 7.5rem;
+  padding-top: 2.5rem;
   min-height: fit-content;
 }
 
 .home img {
   width: 100%;
+}
+
+.searchBar {
+  width: 60%;
 }
 
 .logo {
@@ -44,7 +48,11 @@
 
 @media screen and (min-width: 1200px) {
   .home {
-    height: 150vh;
+    height: 100%;
+  }
+
+  .home > * {
+    margin-top: 5rem;
   }
 }
 
@@ -57,5 +65,9 @@
 @media screen and (max-width: 800px) {
   .logo {
     width: 80%;
+  }
+
+  .searchBar {
+    width: 90%;
   }
 }
