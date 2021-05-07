@@ -2,19 +2,21 @@ import React from 'react';
 import classes from './card.module.css';
 
 interface Props {
-  style: string;
+  type: string;
   title: string;
   pictureURI: string;
 }
 
-const Card: React.FC<Props> = ({ style, title, pictureURI }) => {
+const Card: React.FC<Props> = ({ type, title, pictureURI }) => {
   const modalClasses = [classes.card];
+  modalClasses.push(classes.lastRecipe);
 
-  if (style === 'lastRecipes') {
-    modalClasses.push(classes.lastRecipes);
-  } else if (style === 'favouriteRecipes') {
-    modalClasses.push(classes.favouriteRecipes);
-  }
+  // if (type === 'lastRecipe') {
+  // } else if (type === 'favouriteRecipe') {
+  //   modalClasses.push(classes.favouriteRecipe);
+  // } else {
+  //   modalClasses.push(classes.category);
+  // }
 
   return (
     <div className={modalClasses.join(' ')}>

@@ -4,7 +4,9 @@
   min-height: fit-content;
   border-radius: 0.5rem;
   cursor: pointer;
+  margin: 1rem;
 }
+
 .card p {
   text-align: center;
   font-size: 1.25rem;
@@ -12,14 +14,13 @@
   color: #481313;
 }
 
-.lastRecipes {
-  background-color: rgb(255, 255, 255);
+.lastRecipe {
+  background-color: #fff8f8;
   color: black;
 }
 
-.favourites {
-  background-color: #b74d4d;
-  color: rgb(255, 255, 255);
+.category {
+  background-color: #ffce97;
 }
 
 .card img {
