@@ -7,4 +7,4 @@ export const store = init({
 
 export type Store = typeof store;
 export type Dispatch = RematchDispatch<RootModel>;
-export type State = RematchRootState<RootModel>;
+export type RootState = RematchRootState<RootModel>;
