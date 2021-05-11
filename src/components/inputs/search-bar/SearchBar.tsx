@@ -1,4 +1,4 @@
-import { useStyles, CssTextField } from './MUIstyles';
+import { useStyles, CssTextField } from './searchBarStyle';
 import React, { useState } from 'react';
 
 interface Props {
@@ -11,7 +11,15 @@ const SearchBar: React.FC<Props> = ({ onSubmit }) => {
   let [input, setInput] = useState('');
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={() => onSubmit(input)}>
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit(input);
+      }}
+    >
       <CssTextField
         id="custom-css-outlined-input"
         label="Rechercher un plat, un ingrédient..."

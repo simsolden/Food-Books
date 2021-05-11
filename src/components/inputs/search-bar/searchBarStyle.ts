@@ -16,19 +16,8 @@ export const CssTextField = withStyles({
     '& label.Mui-focused': {
       color: '#c35d5d',
     },
-    // '& .MuiInput-underline:after': {
-    //   borderBottomColor: '#c35d5d',
-    // },
     '& .MuiFilledInput-underline:after': {
       borderBottomColor: '#c35d5d',
     },
-    // '& .MuiOutlinedInput-root': {
-    //   '&.Mui-focused fieldset': {
-    //     borderColor: '#c35d5d',
-    //   },
-    //   '&:hover fieldset': {
-    //     borderColor: '#c35d5d',
-    //   },
-    // },
   },
 })(TextField);

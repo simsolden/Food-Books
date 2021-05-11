@@ -1,9 +1,10 @@
 import React from 'react';
-import classes from './Recipe.module.css';
+import classes from './RecipeItem.module.css';
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
+import { useRouteMatch } from 'react-router-dom';
 
 interface Props {
   isUserRecipe?: boolean;
@@ -12,7 +13,9 @@ interface Props {
   ingredientsList: string;
 }
 
-const Recipe: React.FC<Props> = ({ title, description, ingredientsList, isUserRecipe }) => {
+const RecipeItem: React.FC<Props> = ({ title, description, ingredientsList, isUserRecipe }) => {
+  const match = useRouteMatch();
+
   return (
     <div className={classes.recipe}>
       <a href="#">
@@ -28,7 +31,7 @@ const Recipe: React.FC<Props> = ({ title, description, ingredientsList, isUserRe
               <button title="Ajouter au calendrier" onClick={() => alert('add to calendar')}>
                 <TodayIcon fontSize="large" />
               </button>
-              <button title="Modifier la recette" onClick={() => alert('edit')}>
+              <button title="Modifier la recette" onClick={() => alert(`edit ${match.path + title}`)}>
                 <EditIcon fontSize="large" />
               </button>
             </div>
@@ -53,4 +56,4 @@ const Recipe: React.FC<Props> = ({ title, description, ingredientsList, isUserRe
   );
 };
 
-export default Recipe;
+export default RecipeItem;
