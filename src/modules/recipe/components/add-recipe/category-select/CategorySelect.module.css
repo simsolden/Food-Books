@@ -1,0 +1,21 @@
+.singleCategory {
+  display: flex;
+}
+
+@media screen and (max-width: 650px) {
+  .singleCategory {
+    flex-direction: column;
+  }
+
+  .singleCategory > span {
+    margin-left: -1rem !important;
+  }
+
+  .singleCategory > span::after {
+    color: #bc5252;
+    width: 100%;
+    content: 'Supprimer';
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+  }
+}
