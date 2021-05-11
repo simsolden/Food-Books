@@ -10,11 +10,13 @@ type State = {
 const userInfo = {
   state: {
     user: UserFactory.create(),
-    isAuthenticated: true,
+    isAuthenticated: false,
   } as State,
   reducers: {
     updateUserInfo: (state: State, user: User) => ({ ...state, user }),
     setAuthenticated: (state: State, isAuthenticated: boolean) => ({ ...state, isAuthenticated }),
+    logout: (state: State) => ({ ...state, isAuthenticated: false }),
+    login: (state: State) => ({ ...state, isAuthenticated: true }),
   },
   effect: (dispatch: Dispatch) => ({
     async authenticate(payload: object) {

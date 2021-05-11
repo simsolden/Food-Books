@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SideDrawer from '../../components/navigation/SideDrawer/SideDrawer';
 import Toolbar from '../../components/navigation/Toolbar/Toolbar';
-import { State } from '../../store';
+import { RootState } from '../../store';
 
 const Layout: React.FC = (props) => {
-  const isAuthenticated = useSelector((state: State) => state.user.isAuthenticated);
+  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
   const [showSideDrawer, setShowSideDrawer] = useState(false);
 
   const sideDrawerClosedHandler = () => {

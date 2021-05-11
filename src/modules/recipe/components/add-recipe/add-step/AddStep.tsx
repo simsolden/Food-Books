@@ -1,5 +1,4 @@
 import { IconButton } from '@material-ui/core';
-import { error } from 'console';
 import React from 'react';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import classes from './AddStep.module.css';

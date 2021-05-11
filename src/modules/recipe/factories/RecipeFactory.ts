@@ -18,7 +18,7 @@ export class RecipeFactory {
       categories: [0],
       prepSteps: ['', '', ''],
       ingredients: [IngredientFactory.create(), IngredientFactory.create(), IngredientFactory.create()],
-      private: true,
+      isPrivate: false,
     };
   };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from '../../components/searchBar/SearchBar';
+import SearchBar from '../../components/inputs/search-bar/SearchBar';
 import logo from '../../assets/logo-white.png';
 import classes from './styles/Home.module.css';
 import Card from '../../components/card/Card';

@@ -14,7 +14,7 @@ const navigationItems: React.FC<Props> = ({ isAuthenticated }) => {
           <NavigationItem link="/planning">MON PLANNING</NavigationItem>
         </>
       )}
-      <NavigationItem link="/recettes-populaires/">RECETTES POPULAIRES</NavigationItem>
+      <NavigationItem link="/decouvrir/">DÉCOUVRIR</NavigationItem>
       <NavigationItem link="/categories">CATÉGORIES</NavigationItem>
       {isAuthenticated ? (
         <NavigationItem isLogger link="/logout">
