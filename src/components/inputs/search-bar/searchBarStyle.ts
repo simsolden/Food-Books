@@ -13,6 +13,10 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const CssTextField = withStyles({
   root: {
+    '& .MuiFilledInput-input': {
+      backgroundColor: 'white',
+      borderRadius: '0.4rem 0.4rem 0.1rem 0.1rem',
+    },
     '& label.Mui-focused': {
       color: '#c35d5d',
     },

@@ -25,9 +25,10 @@ const RecipesPage: React.FC<Props> = ({ isUserRecipes }) => {
   };
 
   const searchBarClass = isUserRecipes ? classes.searchBar : classes.fullSearchBar;
+  const recipesClass = isUserRecipes ? [classes.recipes, classes.userRecipes] : [classes.recipes];
 
   return (
-    <div className={classes.recipes}>
+    <div className={recipesClass.join(' ')}>
       <div className={classes.top}>
         {isUserRecipes && (
           <Link to={`${match.url}/ajouter`}>
