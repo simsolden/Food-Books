@@ -4,7 +4,7 @@ import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
-import { useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 interface Props {
   isUserRecipe?: boolean;
@@ -15,17 +15,18 @@ interface Props {
 
 const RecipeItem: React.FC<Props> = ({ title, description, ingredientsList, isUserRecipe }) => {
   const match = useRouteMatch();
+  const slug = title.split(' ').join('-');
 
   return (
     <div className={classes.recipe}>
-      <a href="#">
+      <Link to={`${match.url}/${slug}`}>
         <img src="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg" alt="Tacos" />
-      </a>
+      </Link>
       <div className={classes.recipeInfo}>
         <div className={classes.firstRow}>
-          <a className={classes.title} href="#">
+          <Link className={classes.title} to={`${match.url}/${slug}`}>
             <h2>{title}</h2>
-          </a>
+          </Link>
           {isUserRecipe && (
             <div className={classes.actionButtons}>
               <button title="Ajouter au calendrier" onClick={() => alert('add to calendar')}>
