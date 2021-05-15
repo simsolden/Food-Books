@@ -1,0 +1,61 @@
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.ingredients p {
+  color: #3e3131;
+  font-weight: 500;
+  margin-left: 2rem;
+  margin-bottom: 0.5rem;
+  width: 25%;
+}
+
+.singlePrepStep {
+  display: flex;
+}
+
+.prepStepNumber {
+  margin-left: 1rem;
+  margin-top: 1.25rem;
+  padding: 0.4rem 0.85rem;
+  color: white;
+  text-align: center;
+  font-size: 1.15rem;
+  height: fit-content;
+  background-color: rgb(200, 123, 123);
+  border-radius: 50%;
+}
+
+.prepStepDescription {
+  margin: 1rem 0 1rem 1rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  width: 85%;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .ingredients p {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    width: 40%;
+  }
+
+  .ingredients {
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .ingredients p {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    width: 90%;
+  }
+
+  .prepStepNumber {
+    margin-left: 0rem;
+  }
+}
