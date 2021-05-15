@@ -24,7 +24,7 @@ const AddIngredient: React.FC<Props> = ({ error, onRemove, ingredient, onChangeI
           label="Quantité"
           onChange={(input) => onChangeIngredient('quantity', input)}
           type="number"
-          value={ingredient.quantity ? ingredient.quantity : undefined}
+          value={ingredient.quantity ? ingredient.quantity : ''}
         />
         <CustomSelect
           label="Mesure"
