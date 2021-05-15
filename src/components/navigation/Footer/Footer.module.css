@@ -1,0 +1,27 @@
+.footer {
+  background-color: #8b4242;
+  min-height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer > * {
+  margin: 1rem;
+  color: black;
+  font-size: 0.75rem;
+}
+
+.footer a:hover {
+  margin: 01rem;
+  color: lightpink;
+}
+
+@media screen and (max-width: 768px) {
+  .footer > * {
+    text-align: center;
+  }
+}
