@@ -8,4 +8,12 @@ export class IngredientFactory {
       quantity: 0,
     };
   }
+
+  static createMock(name: string, measurement: Measurement, quantity: number): Ingredient {
+    return {
+      name,
+      measurement,
+      quantity,
+    };
+  }
 }
