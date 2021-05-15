@@ -11,10 +11,10 @@
 }
 
 .recipeImg {
-  width:3.5rem;
-  height:3.5rem;
-  object-fit:cover;
-  border-radius:50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: 50%;
   margin: auto 1rem;
 }
 
@@ -24,14 +24,19 @@
 }
 
 .actionButton {
-  border:none;
+  border: none;
   background-color: transparent;
   font-size: 2.5rem;
   position: absolute;
   top: 0.3rem;
   right: 0.7rem;
   line-height: 0;
-  margin:0;
+  margin: 0;
   cursor: pointer;
 }
 
+.link {
+  text-decoration: none;
+  color: black;
+  display: flex;
+}
