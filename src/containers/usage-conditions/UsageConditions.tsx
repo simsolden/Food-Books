@@ -59,7 +59,7 @@ const UsageConditions: React.FC<Props> = (props) => {
         ligne par les utilisateurs, et ce sans justification.
         <h3 id="copyright">Copyright</h3>
         Toute reproduction ou copie des contenus présents sur le site (notamment des recettes) à des fins autres qu'un
-        usage privé n'est possible qu'après autorisation écrite des gestionnaires du site. <br />
+        usage privé n'est possible qu'après autorisation écrite du ou des gestionnaire(s) du site. <br />
         Photos : Flickr, Pixabay, ShutterStock, Pexels, Unsplash <br />
       </p>
       <h2 id="services">Services</h2>
