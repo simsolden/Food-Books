@@ -45,9 +45,20 @@
     cursor: pointer;
     margin: 2rem;
   }
+
+  .card img {
+    width: 100%;
+    object-fit: contain;
+    margin: auto;
+  }
 }
 
 @media (max-width: 820px) {
+  .card img {
+    width: 100%;
+    object-fit: contain;
+  }
+
   .card {
     padding: 0.5rem;
     width: 80%;

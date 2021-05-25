@@ -11,7 +11,7 @@ const MyRecipes: React.FC<Props> = (props) => {
   const history = useHistory();
   const recipes = useSelector((state: RootState) => state.recipe.userRecipes);
   const search = new URLSearchParams(useLocation().search);
-  const query = `/users/recipes/${useLocation().search}`;
+  const query = `/users/recipes${useLocation().search}`;
   const { setTitle, setPagination, fetchUserRecipes } = useRematchDispatch((dispatch: Dispatch) => ({
     setTitle: dispatch.recipe.setTitle,
     setPagination: dispatch.recipe.setPagination,

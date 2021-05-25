@@ -1,4 +1,4 @@
-import { Filters } from '../components/recipes-list/filters';
+import { Filters } from '../../../common/index.d';
 
 export const createRequestUrl = (title: string | null, filters: Filters | null) => {
   let url = '';

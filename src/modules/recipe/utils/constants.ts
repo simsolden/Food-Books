@@ -1,5 +1,5 @@
 export const DIFFICULTY = ['', 'easy', 'medium', 'difficult'];
-export const COST = ['', 'low', 'medium', 'high'];
+export const COST = ['', 'low', 'medium', 'pricy'];
 export const TYPE = ['', 'Appetizer', 'Entry', 'Meal', 'Dessert', 'Drink', 'Other'];
 export const MEASUREMENT = ['', 'other', 'kg', 'g', 'l', 'cl', 'ml', 'c.c.', 'c.s.', 'sachet'];
 
