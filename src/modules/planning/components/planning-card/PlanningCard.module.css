@@ -7,6 +7,9 @@
   margin: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+  scrollbar-width: thin;
 }
 
 .card h3 {
