@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './RecipesList.module.css';
 
 import RecipeItem from './recipe-item/RecipeItem';
@@ -21,13 +21,20 @@ const RecipesList: React.FC<Props> = ({ userRecipes, show, closed, recipes }) =>
   let recipesListItems = null;
   const history = useHistory();
   const currentLocation = useLocation();
-  const { fetchUserRecipes, fetchRecipes, setPagination } = useRematchDispatch((dispatch: Dispatch) => ({
+  const { setTitle, fetchUserRecipes, fetchRecipes, setPagination } = useRematchDispatch((dispatch: Dispatch) => ({
+    setTitle: dispatch.recipe.setTitle,
     fetchUserRecipes: dispatch.recipe.fetchUserRecipes,
     fetchRecipes: dispatch.recipe.fetchRecipes,
     setPagination: dispatch.recipe.setPagination,
   }));
   const loading = useSelector((state: RootState) => state.recipe.isLoading);
   const pagination = useSelector((state: RootState) => state.recipe.pagination);
+
+  useEffect(() => {
+    return () => {
+      setTitle(null);
+    };
+  });
 
   if (recipes.length) {
     recipesListItems = recipes.map((recipe) => {

@@ -3,7 +3,7 @@ import classes from './RecipeItem.module.css';
 
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { Recipe } from '../../../../../common';
 import { IMAGE_SOURCE } from '../../../../../common/config';
 import { useModalState } from '../../../../../hooks/useModal';
@@ -19,10 +19,11 @@ interface Props {
 }
 
 const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
+  const history = useHistory();
   const addPlanningRecipe = useRematchDispatch((dispatch: Dispatch) => dispatch.planning.addPlanningRecipe);
   const { isOpen, onClose, onOpen } = useModalState();
   const match = useRouteMatch();
-  const slug = `${match.url}/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
+  const slug = `/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
   const ingredientsList =
     recipe.ingredients
       .slice(0, 6)
@@ -31,6 +32,11 @@ const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
       .trim() + ', ...';
 
   const onSave = async (date: Date) => {
+    if (!localStorage.getItem('user-token') || !localStorage.getItem('user-token')) {
+      onClose();
+      history.push('/login');
+      return;
+    }
     // @ts-ignore
     const success = await addPlanningRecipe({ planningRecipe: { recipeId: recipe._id, date } });
     setTimeout(onClose, 2500);
@@ -43,7 +49,7 @@ const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
         <AddRecipeModal onClose={onClose} onSave={onSave} />
       </Modal>
       <div className={classes.recipe}>
-        <Link to={slug}>
+        <Link to={match.url + slug}>
           <img src={IMAGE_SOURCE + recipe.pictures[0]} alt={recipe.title} />
         </Link>
         <div className={classes.recipeInfo}>
@@ -56,7 +62,12 @@ const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
                 <TodayIcon fontSize="large" />
               </button>
               {isUserRecipe && (
-                <button title="Modifier la recette" onClick={() => alert(`edit ${match.path + recipe.title}`)}>
+                <button
+                  title="Modifier la recette"
+                  onClick={() => {
+                    history.push(`${match.url}/edit${slug}`);
+                  }}
+                >
                   <EditIcon fontSize="large" />
                 </button>
               )}

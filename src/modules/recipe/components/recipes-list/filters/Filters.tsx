@@ -1,11 +1,11 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import Types from './types/Types';
-import TypeFactory from './factories/TypeFactory';
+import TypeFactory from '../../../factories/TypeFactory';
 import classes from './styles/Filters.module.css';
-import PrepTimeFactory from './factories/PrepTimeFactory';
+import PrepTimeFactory from '../../../factories/PrepTimeFactory';
 import PrepTime from './prepTime/PrepTime';
 import Difficulty from './difficulty/Difficulty';
-import DifficultyFactory from './factories/DifficultyFactory';
+import DifficultyFactory from '../../../factories/DifficultyFactory';
 import Backdrop from '../../../../../components/backdrop/Backdrop';
 import Categories from './categories/Categories';
 import { useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import { Dispatch, RootState } from '../../../../../store';
 import { useRematchDispatch } from '../../../../../hooks/useRematchDispatch';
 import { useHistory, useLocation } from 'react-router-dom';
 import { createRequestUrl } from '../../../utils/createRequestUrl';
+import { FiltersFactory } from '../../../factories/FiltersFactory';
 
 interface Props {
   show: boolean;
@@ -37,12 +38,7 @@ const Filters: React.FC<Props> = ({ show, closed }) => {
 
   useEffect(() => {
     return () => {
-      setFilters({
-        difficulty: [],
-        categories: [],
-        prepTime: [],
-        types: [],
-      });
+      setFilters(FiltersFactory.create());
     };
   });
 
@@ -83,10 +79,12 @@ const Filters: React.FC<Props> = ({ show, closed }) => {
 
     setFilters(filtersObject);
 
-    const url = createRequestUrl(title, filtersObject);
+    let url = createRequestUrl(title, filtersObject);
+
     //@ts-ignore
     setPagination({ currentPage: 1 });
-
+    let sort = new URLSearchParams(location.search).get('sort');
+    url += sort ? `&sort=${sort}` : '';
     if (location.pathname === '/mes-recettes') {
       history.push(`/mes-recettes?page=1${url}`);
       fetchUserRecipe();

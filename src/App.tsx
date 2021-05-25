@@ -5,6 +5,7 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { Dispatch, RootState } from './store';
 import Home from './containers/home/Home';
 import MemberHome from './containers/home/MemberHome';
+import Recipes from './containers/recipes/Recipes';
 import Layout from './containers/hoc/Layout';
 import Logout from './containers/auth/logout/Logout';
 import { useRematchDispatch } from './hooks/useRematchDispatch';
@@ -14,8 +15,8 @@ import DateFnsUtils from '@date-io/date-fns';
 const Categories = lazy(() => import('./containers/categories/Categories'));
 const SignIn = lazy(() => import('./containers/auth/sign-in/Login'));
 const MyRecipes = lazy(() => import('./containers/my-recipes/MyRecipes'));
-const Recipes = lazy(() => import('./containers/recipes/Recipes'));
 const SingleRecipe = lazy(() => import('./modules/recipe/components/single-recipe/SingleRecipe'));
+const UpdateRecipe = lazy(() => import('./modules/recipe/components/update-recipe/UpdateRecipe'));
 const AddRecipe = lazy(() => import('./modules/recipe/components/add-recipe/AddRecipe'));
 const Planning = lazy(() => import('./containers/planning/Planning'));
 const UsageConditions = lazy(() => import('./containers/usage-conditions/UsageConditions'));
@@ -23,13 +24,15 @@ const UsageConditions = lazy(() => import('./containers/usage-conditions/UsageCo
 const App: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
 
-  const { fetchCategories } = useRematchDispatch((dispatch: Dispatch) => ({
+  const { fetchCategories, checkAuthenticationState } = useRematchDispatch((dispatch: Dispatch) => ({
     fetchCategories: dispatch.recipe.fetchCategories,
+    checkAuthenticationState: dispatch.user.checkAuthenticationState,
   }));
 
   useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]);
+    checkAuthenticationState();
+  }, [fetchCategories, checkAuthenticationState]);
 
   let routes = (
     <Switch>
@@ -51,6 +54,7 @@ const App: React.FC = () => {
         <Route path="/decouvrir/:recipeSlug" exact component={SingleRecipe} />
         <Route path="/mes-recettes/ajouter" exact component={AddRecipe} />
         <Route path="/mes-recettes" exact component={MyRecipes} />
+        <Route path="/mes-recettes/edit/:recipeSlug" exact component={UpdateRecipe} />
         <Route path="/mes-recettes/:recipeSlug" exact component={SingleRecipe} />
         <Route path="/planning" exact component={Planning} />
         <Route path="/logout" exact component={Logout} />
