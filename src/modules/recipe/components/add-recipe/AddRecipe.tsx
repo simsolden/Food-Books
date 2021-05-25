@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { Recipe } from '../../../../common';
+import { Recipe } from '../../../../common/index.d';
 import PictureInput from '../../../../components/inputs/picture-input/PictureInput';
 import CustomSelect from '../../../../components/inputs/custom-select/CustomSelect';
 import TextInput from '../../../../components/inputs/text-input/TextInput';
 import { RecipeFactory } from '../../factories/RecipeFactory';
-import RecipeFormValidator from '../../validators/FormValidator';
+import RecipeFormValidator from '../../validators/RecipeFormValidator';
 import classes from './AddRecipe.module.css';
 import CategorySelect from './category-select/CategorySelect';
 import AddIngredient from './add-ingredient/AddIngredient';
 import { IngredientFactory } from '../../factories/IngredientFactory';
 import AddStep from './add-step/AddStep';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { useRematchDispatch } from '../../../../hooks/useRematchDispatch';
+import { Dispatch, RootState } from '../../../../store';
+import { useSelector } from 'react-redux';
+import { COST_LABELS, DIFFICULTY_LABELS, enumsMap, TYPE_LABELS } from '../../utils/constants';
+import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
@@ -19,13 +24,20 @@ const AddRecipe: React.FC<Props> = (props) => {
   let [picture, setPicture] = useState<File>();
   let [submitted, setSubmitted] = useState(false);
 
+  const history = useHistory();
+  const categories = useSelector((state: RootState) => state.recipe.categories);
+  const { createRecipe, uploadPicture } = useRematchDispatch((dispatch: Dispatch) => ({
+    createRecipe: dispatch.recipe.createRecipe,
+    uploadPicture: dispatch.recipe.uploadPicture,
+  }));
+
   let categoriesSelect = recipe.categories.map((category, index) => (
     <CategorySelect
       key={index}
       error={submitted && category === 0}
       category={category}
-      onChange={(input) => handleCategoryChange(index, +input)}
-      onRemove={() => handleRemoveElement('category', index)}
+      onChange={(input) => handleChange(index, +input, 'category')}
+      onRemove={() => handleAddOrRemoveElement('category', 'remove', index)}
     />
   ));
 
@@ -35,7 +47,7 @@ const AddRecipe: React.FC<Props> = (props) => {
       error={submitted && !RecipeFormValidator.validateIngredient(ingredient)}
       ingredient={ingredient}
       onChangeIngredient={(property, input) => handleIngredientChange(index, property, input)}
-      onRemove={() => handleRemoveElement('ingredient', index)}
+      onRemove={() => handleAddOrRemoveElement('ingredient', 'remove', index)}
     />
   ));
 
@@ -45,8 +57,8 @@ const AddRecipe: React.FC<Props> = (props) => {
       index={index + 1}
       error={submitted && !RecipeFormValidator.validateStepDescription(step)}
       stepDescription={step}
-      onChangeDescription={(input) => handleStepDescriptionChange(index, input)}
-      onRemove={() => handleRemoveElement('stepDescription', index)}
+      onChangeDescription={(input) => handleChange(index, input, 'stepDescription')}
+      onRemove={() => handleAddOrRemoveElement('stepDescription', 'remove', index)}
     />
   ));
 
@@ -55,67 +67,81 @@ const AddRecipe: React.FC<Props> = (props) => {
 
     if (property === 'quantity') {
       updatedRecipe.ingredients[index].quantity = +input;
+    } else if (property === 'measurement') {
+      // @ts-ignore
+      updatedRecipe.ingredients[index][property] = enumsMap.get('measurement')![+input];
     } else {
       // @ts-ignore
-      updatedRecipe.ingredients[index][property] = input;
+      updatedRecipe.ingredients[index][property] = input.toLocaleLowerCase();
     }
 
     setRecipe(updatedRecipe);
   };
 
-  const handleChange = (fieldName: string, inputValue: string | number | boolean) => {
+  const handleChange = (field: string | number, inputValue: string | number | boolean, type?: string) => {
     const updatedRecipe = { ...recipe };
 
-    // @ts-ignore
-    updatedRecipe[fieldName] = inputValue;
-    setRecipe(updatedRecipe);
-    console.log(recipe);
-  };
-
-  const handleStepDescriptionChange = (index: number, inputValue: string) => {
-    const updatedRecipe = { ...recipe };
-
-    updatedRecipe.prepSteps[index] = inputValue;
-    setRecipe(updatedRecipe);
-  };
-
-  const handleCategoryChange = (index: number, inputValue: number) => {
-    const updatedRecipe = { ...recipe };
-
-    updatedRecipe.categories[index] = inputValue;
-    setRecipe(updatedRecipe);
-  };
-
-  const handleRemoveElement = async (property: string, index: number) => {
-    const updatedRecipe = { ...recipe };
-
-    if (property === 'category') {
-      updatedRecipe.categories.splice(index, 1);
-    } else if (property === 'ingredient') {
-      updatedRecipe.ingredients.splice(index, 1);
+    if (type === 'select') {
+      // @ts-ignore
+      updatedRecipe[field] = enumsMap.get(field)[inputValue];
+    } else if (type === 'stepDescription') {
+      // @ts-ignore
+      updatedRecipe.prepSteps[field] = inputValue;
+    } else if (type === 'category') {
+      // @ts-ignore
+      updatedRecipe.categories[field] = inputValue;
     } else {
-      updatedRecipe.prepSteps.splice(index, 1);
+      // @ts-ignore
+      updatedRecipe[field] = inputValue;
     }
 
     setRecipe(updatedRecipe);
   };
 
-  const handleAddElement = (property: string) => {
+  const handleAddOrRemoveElement = async (property: string, type?: string, index?: number) => {
     const updatedRecipe = { ...recipe };
 
-    if (property === 'category') {
-      updatedRecipe.categories.push(0);
-    } else if (property === 'ingredient') {
-      updatedRecipe.ingredients.push(IngredientFactory.create());
+    if (type === 'remove') {
+      if (property === 'category') {
+        updatedRecipe.categories.splice(index!, 1);
+      } else if (property === 'ingredient') {
+        updatedRecipe.ingredients.splice(index!, 1);
+      } else {
+        updatedRecipe.prepSteps.splice(index!, 1);
+      }
     } else {
-      updatedRecipe.prepSteps.push('');
+      if (property === 'category') {
+        updatedRecipe.categories.push(0);
+      } else if (property === 'ingredient') {
+        updatedRecipe.ingredients.push(IngredientFactory.create());
+      } else {
+        updatedRecipe.prepSteps.push('');
+      }
     }
 
     setRecipe(updatedRecipe);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
+
+    const recipeToSend: Recipe = { ...recipe };
+
+    recipeToSend.categories = recipe.categories.map((category) => {
+      return categories[category - 1]._id;
+    });
+
+    if (picture) {
+      const pictureUri = await uploadPicture(picture);
+      // @ts-ignore
+      recipeToSend.pictures[0] = pictureUri;
+    }
+
+    const createdRecipe = await createRecipe(recipeToSend);
+
+    if (createdRecipe) {
+      history.push('/mes-recettes?page=1');
+    }
   };
 
   return (
@@ -132,10 +158,10 @@ const AddRecipe: React.FC<Props> = (props) => {
       >
         <h2>Informations de base</h2>
         <TextInput
-          error={submitted && !RecipeFormValidator.validateName(recipe.name)}
+          error={submitted && !RecipeFormValidator.validateName(recipe.title)}
           errorMessage="Le nom doit faire entre 3 et 40 caratères"
           label="Nom de la recette"
-          onChange={(input) => handleChange('name', input)}
+          onChange={(input) => handleChange('title', input)}
           type="text"
         />
         <div className={classes.recipeMeta}>
@@ -157,18 +183,18 @@ const AddRecipe: React.FC<Props> = (props) => {
             />
             <CustomSelect
               label="Difficulté"
-              currentValue={recipe.difficulty}
-              values={['Facile', 'Moyen', 'Difficile']}
-              onChange={(input) => handleChange('difficulty', +input)}
-              error={submitted && !RecipeFormValidator.validateDifficulty(recipe.difficulty)}
+              currentValue={enumsMap.get('difficulty')!.indexOf(recipe.difficulty)}
+              values={DIFFICULTY_LABELS}
+              onChange={(input) => handleChange('difficulty', +input, 'select')}
+              error={submitted && !RecipeFormValidator.validateEnum('difficulty', recipe.difficulty)}
               errorMessage="Veuillez choisir une difficulté"
             />
             <CustomSelect
               label="Coût"
-              currentValue={recipe.cost}
-              values={['$', '$ $', '$ $ $']}
-              onChange={(input) => handleChange('cost', +input)}
-              error={submitted && !RecipeFormValidator.validateCost(recipe.cost)}
+              currentValue={enumsMap.get('cost')!.indexOf(recipe.cost)}
+              values={COST_LABELS}
+              onChange={(input) => handleChange('cost', +input, 'select')}
+              error={submitted && !RecipeFormValidator.validateEnum('cost', recipe.cost)}
               errorMessage="Veuillez choisir un coût"
             />
             <TextInput
@@ -192,16 +218,21 @@ const AddRecipe: React.FC<Props> = (props) => {
         <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Type</h3>
         <CustomSelect
           label="Type de recette"
-          currentValue={recipe.type}
-          values={['Apéritif', 'Entrée', 'Plat', 'Dessert', 'Boisson', 'Autre']}
-          onChange={(input) => handleChange('type', +input)}
-          error={submitted && !RecipeFormValidator.validateType(recipe.type)}
+          currentValue={enumsMap.get('type')!.indexOf(recipe.type)}
+          values={TYPE_LABELS}
+          onChange={(input) => handleChange('type', +input, 'select')}
+          error={submitted && !RecipeFormValidator.validateEnum('type', recipe.type)}
           errorMessage="Veuillez choisir un type"
         />
         <div className={classes.categories}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Catégorie(s)</h3>
           {categoriesSelect}
-          <button type="button" onClick={() => handleAddElement('category')} className={classes.addCategoryButton}>
+          <button
+            type="button"
+            title="Ajouter une catégorie"
+            onClick={() => handleAddOrRemoveElement('category')}
+            className={classes.addCategoryButton}
+          >
             Ajouter une catégorie
           </button>
         </div>
@@ -209,26 +240,36 @@ const AddRecipe: React.FC<Props> = (props) => {
         <div className={classes.ingredients}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Ingrédients</h3>
           {ingredientsForm}
-          <button type="button" onClick={() => handleAddElement('ingredient')} className={classes.addCategoryButton}>
+          <button
+            type="button"
+            title="Ajouter un ingrédient"
+            onClick={() => handleAddOrRemoveElement('ingredient')}
+            className={classes.addCategoryButton}
+          >
             Ajouter un ingrédient
           </button>
         </div>
         <div className={classes.ingredients}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Étapes de préparation</h3>
           {prepStepsForm}
-          <button type="button" onClick={() => handleAddElement('prepStep')} className={classes.addCategoryButton}>
+          <button
+            title="Ajouter une étape"
+            type="button"
+            onClick={() => handleAddOrRemoveElement('prepStep')}
+            className={classes.addCategoryButton}
+          >
             Ajouter une étape
           </button>
         </div>
         <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" onChange={(input) => handleChange('isPrivate', !input.target.checked)} />}
+          control={<Checkbox color="primary" onChange={(input) => handleChange('isPrivate', !!input.target.checked)} />}
           label="Enregistrer comme recette privée"
           labelPlacement="end"
         />
         <div className={classes.actionButtons}>
           <input type="submit" value="Ajouter la recette" className={classes.addRecipeButton} />
-          <input type="submit" value="Enregistrer comme brouillon" className={classes.addDraftButton} />
+          {/* <input type="submit" value="Enregistrer comme brouillon" className={classes.addDraftButton} /> */}
         </div>
       </form>
     </div>

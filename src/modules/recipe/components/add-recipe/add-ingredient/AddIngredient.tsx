@@ -6,6 +6,7 @@ import CustomSelect from '../../../../../components/inputs/custom-select/CustomS
 import classes from './AddIngredient.module.css';
 import TextInput from '../../../../../components/inputs/text-input/TextInput';
 import { Ingredient } from '../../../../../common';
+import { enumsMap, MEASUREMENT_LABELS } from '../../../utils/constants';
 
 interface Props {
   error: boolean;
@@ -28,13 +29,13 @@ const AddIngredient: React.FC<Props> = ({ error, onRemove, ingredient, onChangeI
         />
         <CustomSelect
           label="Mesure"
-          currentValue={ingredient.measurement}
-          values={['(autre)', 'kg', 'gr', 'L', 'cl', 'ml', 'c.s.', 'c.c.', 'sachet(s)']}
+          currentValue={enumsMap.get('measurement')!.indexOf(ingredient.measurement)}
+          values={MEASUREMENT_LABELS}
           onChange={(input) => onChangeIngredient('measurement', input)}
           error={false}
         />
         <TextInput
-          error={(error && ingredient.name.length < 2) || ingredient.name.length > 20}
+          error={(error && ingredient.name.length < 2) || ingredient.name.length > 50}
           label="Ingrédient"
           onChange={(input) => onChangeIngredient('name', input)}
           type="text"
