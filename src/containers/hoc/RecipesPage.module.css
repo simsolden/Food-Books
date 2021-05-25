@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: space-around;
   margin: 8rem auto 2rem;
+  max-width: 70%;
   width: fit-content;
   padding: 2rem;
   border-radius: 5px;
@@ -86,6 +87,8 @@
   }
 
   .recipes {
+    max-width: 100%;
+
     margin: 0;
     padding: 1rem;
   }

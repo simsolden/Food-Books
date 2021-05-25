@@ -6,12 +6,15 @@ import SearchBar from '../../components/inputs/search-bar/SearchBar';
 import SortSelect from '../../modules/recipe/components/recipes-list/sort-select/SortSelect';
 import TuneOutlinedIcon from '@material-ui/icons/TuneOutlined';
 import classes from './RecipesPage.module.css';
+import { Recipe } from '../../common/index.d';
 
 interface Props {
   isUserRecipes: boolean;
+  recipes: Recipe[];
+  onSearch: (text: string) => void;
 }
 
-const RecipesPage: React.FC<Props> = ({ isUserRecipes }) => {
+const RecipesPage: React.FC<Props> = ({ isUserRecipes, recipes, onSearch }) => {
   const [showSideDrawer, setShowSideDrawer] = useState(false);
 
   const match = useRouteMatch();
@@ -38,11 +41,7 @@ const RecipesPage: React.FC<Props> = ({ isUserRecipes }) => {
           </Link>
         )}
         <div className={searchBarClass}>
-          <SearchBar
-            onSubmit={(input) => {
-              alert(`Search: ${input}`);
-            }}
-          />
+          <SearchBar onSubmit={onSearch} />
         </div>
       </div>
       <div className={classes.middle}>
@@ -51,7 +50,12 @@ const RecipesPage: React.FC<Props> = ({ isUserRecipes }) => {
           <TuneOutlinedIcon fontSize="large" />
         </button>
       </div>
-      <RecipesList userRecipes={isUserRecipes} show={showSideDrawer} closed={sideDrawerClosedHandler} />
+      <RecipesList
+        recipes={recipes}
+        userRecipes={isUserRecipes}
+        show={showSideDrawer}
+        closed={sideDrawerClosedHandler}
+      />
     </div>
   );
 };

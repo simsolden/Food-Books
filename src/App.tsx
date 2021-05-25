@@ -1,13 +1,18 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
+import frLocale from 'date-fns/locale/fr';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import { RootState } from './store';
+import { Dispatch, RootState } from './store';
 import Home from './containers/home/Home';
+import MemberHome from './containers/home/MemberHome';
 import Layout from './containers/hoc/Layout';
 import Logout from './containers/auth/logout/Logout';
-import SignIn from './containers/auth/sign-in/Login';
+import { useRematchDispatch } from './hooks/useRematchDispatch';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const Categories = lazy(() => import('./containers/categories/Categories'));
+const SignIn = lazy(() => import('./containers/auth/sign-in/Login'));
 const MyRecipes = lazy(() => import('./containers/my-recipes/MyRecipes'));
 const Recipes = lazy(() => import('./containers/recipes/Recipes'));
 const SingleRecipe = lazy(() => import('./modules/recipe/components/single-recipe/SingleRecipe'));
@@ -17,6 +22,14 @@ const UsageConditions = lazy(() => import('./containers/usage-conditions/UsageCo
 
 const App: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+
+  const { fetchCategories } = useRematchDispatch((dispatch: Dispatch) => ({
+    fetchCategories: dispatch.recipe.fetchCategories,
+  }));
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   let routes = (
     <Switch>
@@ -32,7 +45,7 @@ const App: React.FC = () => {
   if (isAuthenticated) {
     routes = (
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={MemberHome} />
         <Route path="/categories" exact component={Categories} />
         <Route path="/decouvrir" exact component={Recipes} />
         <Route path="/decouvrir/:recipeSlug" exact component={SingleRecipe} />
@@ -49,9 +62,11 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Layout>
-        <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
-      </Layout>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+        <Layout>
+          <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+        </Layout>
+      </MuiPickersUtilsProvider>
     </>
   );
 };
