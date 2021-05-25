@@ -1,0 +1,74 @@
+.container {
+  height: 76vh;
+}
+
+.loginWindow {
+  background-color: rgb(250, 250, 250, 0.85);
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+  width: 30%;
+  margin: auto;
+  margin-top: 10rem;
+  padding: 3rem 5rem;
+}
+
+.loginWindow form {
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+  padding: 3rem 3rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.loginButton {
+  background: #b76565;
+  color: white;
+  margin: 2rem auto 0;
+  width: 100%;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
+.loginWindow input:hover {
+  transform: scale(1.01);
+  filter: brightness(1.05);
+}
+
+.loginWindow input:active {
+  transform: scale(1);
+}
+
+.loginWindow h2,
+.loginWindow input p {
+  text-align: center;
+}
+
+@media screen and (min-height: 850px) and (min-width: 530px) {
+  .container {
+    height: 85vh;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .loginWindow {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .loginWindow {
+    width: 75%;
+    padding: 5rem 2rem;
+  }
+
+  .loginWindow form {
+    padding: 3rem 1rem;
+  }
+}
