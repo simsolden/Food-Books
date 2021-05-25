@@ -1,4 +1,5 @@
-import { Cost, Difficulty, Ingredient, RecipeType } from '../../../common/index.d';
+import { Ingredient } from '../../../common';
+import { enumsMap } from '../utils/constants';
 
 export default class RecipeFormValidator {
   private static minMax(value: number, min: number, max: number) {
@@ -17,17 +18,9 @@ export default class RecipeFormValidator {
     return !inputValue || RecipeFormValidator.minMax(inputValue, 1, 3600 * 100);
   }
 
-  static validateDifficulty(inputValue: number) {
-    return Object.values(Difficulty).includes(inputValue);
+  static validateEnum(enumType: string, inputValue: string) {
+    return Array.from(enumsMap.get(enumType)!.values()).includes(inputValue);
   }
-
-  static validateCost = (inputValue: number) => {
-    return Object.values(Cost).includes(inputValue);
-  };
-
-  static validateType = (inputValue: number) => {
-    return Object.values(RecipeType).includes(inputValue);
-  };
 
   static validateServings = (inputValue: number) => {
     return RecipeFormValidator.minMax(inputValue, 1, 12);
