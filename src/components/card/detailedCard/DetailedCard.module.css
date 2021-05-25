@@ -1,17 +1,24 @@
 .card {
-  padding: 0.5rem;
-  height: 20rem;
-  max-width: 20rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
+  padding: 2rem;
+  max-width: 30rem;
+  border-radius: 0.2rem;
   margin: 1rem;
 }
 
-.card p {
+.card a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.card p a {
+  text-decoration: underline;
+}
+
+.card h3 {
+  margin-top: 0;
   text-align: center;
-  font-size: 1.25rem;
-  margin: 0;
-  color: #481313;
+  font-size: 1.5rem;
 }
 
 .lastRecipe {
@@ -24,9 +31,8 @@
 }
 
 .card img {
-  height: 85%;
-  width: 100%;
-  object-fit: cover;
+  width: 30rem;
+  object-fit: contain;
   border-radius: 0.3rem;
 }
 
