@@ -9,6 +9,8 @@ import { Dispatch } from '../../../store';
 import { DatePicker } from '@material-ui/pickers';
 import classes from './SignUp.module.css';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { materialTheme } from '../../../common/datepicker/datePickerTheme';
 
 interface Props {}
 
@@ -63,18 +65,20 @@ const SignUp: React.FC<Props> = (props) => {
             type="text"
           />
         </div>
-        <DatePicker
-          error={submitted && !UserFormValidator.validateBirthdate(user)}
-          invalidDateMessage={null}
-          fullWidth
-          openTo="year"
-          views={['year', 'month', 'date']}
-          format="dd/MM/yyyy"
-          margin="normal"
-          label="Date de naissance"
-          value={user.birthdate}
-          onChange={(input: MaterialUiPickersDate) => handleChange('birthdate', input)}
-        />
+        <ThemeProvider theme={materialTheme}>
+          <DatePicker
+            error={submitted && !UserFormValidator.validateBirthdate(user)}
+            invalidDateMessage={null}
+            fullWidth
+            openTo="year"
+            views={['year', 'month', 'date']}
+            format="dd/MM/yyyy"
+            margin="normal"
+            label="Date de naissance"
+            value={user.birthdate}
+            onChange={(input: MaterialUiPickersDate) => handleChange('birthdate', input)}
+          />
+        </ThemeProvider>
         {submitted && !UserFormValidator.validateBirthdate(user) && (
           <p className={classes.unvalidDate}>Date non valide</p>
         )}
