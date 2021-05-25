@@ -131,6 +131,13 @@ const AddRecipe: React.FC<Props> = (props) => {
       return categories[category - 1]._id;
     });
 
+    recipeToSend.ingredients = recipe.ingredients.map((ingredient) => {
+      if (ingredient.measurement === '') {
+        ingredient.measurement = 'other';
+      }
+      return ingredient;
+    });
+
     if (picture) {
       const pictureUri = await uploadPicture(picture);
       // @ts-ignore

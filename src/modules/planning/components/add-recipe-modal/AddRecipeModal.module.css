@@ -1,0 +1,49 @@
+.recipeModal {
+  text-align: center;
+  margin: auto;
+}
+
+.title {
+  font-family: Roboto;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.actionButtons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.closeButton,
+.saveButton {
+  background: #b76565;
+  color: white;
+  margin: 0.5rem 1rem;
+  padding: 0 1rem;
+  height: 2rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px #000000f0;
+  font-size: large;
+  letter-spacing: 0.2rem;
+}
+
+.closeButton {
+  background: #b29c9c;
+}
+
+.saveButton {
+  background-color: #b95252;
+}
+
+@media screen and (max-width: 600px) {
+  .actionButtons {
+    flex-direction: column;
+  }
+}
