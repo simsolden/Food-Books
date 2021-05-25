@@ -1,0 +1,35 @@
+.pagination {
+  display: flex;
+  align-self: center;
+  margin-top: 1rem;
+  justify-self: end;
+}
+
+.currentPage,
+.pagination button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2em;
+  margin: 0 0.5rem;
+}
+
+.currentPage {
+  color: white;
+  background: #cb6b6b;
+}
+
+.paginationLink {
+  margin: 0 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.pagination button:hover {
+  color: #cb6b6b;
+  border: 1px solid #cb6b6b;
+}

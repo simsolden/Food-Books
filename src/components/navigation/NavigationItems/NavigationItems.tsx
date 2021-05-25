@@ -10,11 +10,11 @@ const navigationItems: React.FC<Props> = ({ isAuthenticated }) => {
     <ul className={classes.navigationItems}>
       {isAuthenticated && (
         <>
-          <NavigationItem link="/mes-recettes">MES RECETTES</NavigationItem>
+          <NavigationItem link="/mes-recettes?page=1">MES RECETTES</NavigationItem>
           <NavigationItem link="/planning">MON PLANNING</NavigationItem>
         </>
       )}
-      <NavigationItem link="/decouvrir">DÉCOUVRIR</NavigationItem>
+      <NavigationItem link="/decouvrir?page=1">DÉCOUVRIR</NavigationItem>
       <NavigationItem link="/categories">CATÉGORIES</NavigationItem>
       {isAuthenticated ? (
         <NavigationItem isLogger link="/logout">
