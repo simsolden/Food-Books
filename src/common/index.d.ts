@@ -32,40 +32,52 @@ export enum Measurement {
 }
 
 export interface User {
-  id?: number;
+  _id?: string;
+  role: string;
   username: string;
+  birthdate: Date;
+  pictureUri: string;
   firstname: string;
   lastname: string;
   email: string;
+  password: string;
 }
 
 export interface Ingredient {
   name: string;
-  measurement: Measurement;
+  measurement: string;
   quantity: number;
 }
 
 export interface Category {
-  id?: number;
+  _id: number;
+  descriptionSource?: string;
   title: string;
   description: string;
   pictureUri: string;
 }
 
 export interface Recipe {
-  id?: number;
-  name: string;
+  _id?: string;
+  owner?: string;
+  username?: string;
+  title: string;
   prepTime: number;
   cookingTime: number;
-  difficulty: Difficulty;
-  cost: Cost;
+  difficulty: string;
+  cost: string;
   servings: number;
   grade: number;
   description: string;
   pictures: string[];
-  type: RecipeType;
+  type: string;
   categories: number[];
   ingredients: Ingredient[];
   prepSteps: string[];
   isPrivate: boolean;
+}
+
+export interface PlanningRecipe {
+  recipe: Recipe;
+  date: Date;
 }

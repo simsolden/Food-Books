@@ -1,3 +1,3 @@
-export interface RouteParams {
+export interface RecipeRouteParams {
   recipeSlug: string;
 }
