@@ -16,6 +16,22 @@
     'Helvetica Neue', sans-serif;
 }
 
+.hrOne {
+  margin-top: 2rem;
+  width: 90%;
+  color: #050505ff;
+}
+
+.hrTwo {
+  width: 90%;
+  color: #050505ff;
+}
+
+.recipeCreator {
+  margin-left: 2rem;
+  font-style: italic;
+}
+
 .description {
   text-align: center;
 }

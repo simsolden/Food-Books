@@ -10,6 +10,37 @@
   margin-left: 2rem;
   margin-bottom: 0.5rem;
   width: 25%;
+  cursor: pointer;
+}
+
+.helpIcon {
+  margin: 0.3rem;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  color: rgb(200, 123, 123);
+  cursor: pointer;
+  align-self: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  height: fit-content;
+  box-shadow: 2px 2px 5px rgb(168, 168, 168);
+  background-color: rgb(210, 162, 162);
+  color: white;
+  border-radius: 0.15rem;
+  padding: 0.4rem;
+  margin: 0.8rem 0.5rem;
+  width: fit-content;
+  display: block;
+  opacity: 0.85;
+}
+
+.ingredientsHeader {
+  display: flex;
 }
 
 .singlePrepStep {
@@ -29,11 +60,14 @@
 }
 
 .prepStepDescription {
+  background-color: rgb(250, 250, 250);
+  box-shadow: 1px 1px 3px lightgrey;
   margin: 1rem 0 1rem 1rem;
   border: 1px solid lightgray;
   border-radius: 0.5rem;
   width: 85%;
   padding: 1rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1300px) {
@@ -57,5 +91,15 @@
 
   .prepStepNumber {
     margin-left: 0rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .ingredientsHeader {
+    flex-wrap: wrap;
+  }
+
+  .show {
+    margin: 0;
   }
 }

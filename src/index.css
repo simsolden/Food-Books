@@ -14,6 +14,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.done {
+  opacity: 0.3;
+  filter: brightness(0.8);
+}
+
 label {
   color: black !important;
 }

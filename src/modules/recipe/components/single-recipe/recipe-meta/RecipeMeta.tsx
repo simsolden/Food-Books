@@ -8,7 +8,9 @@ import difficultyPink from '../../../../../assets/difficulty-pink.png';
 import { IconButton } from '@material-ui/core';
 
 import classes from './RecipeMeta.module.css';
-import { getFullTime } from '../../../utility/format';
+import { getFullTime } from '../../../utils/format';
+import { enumsMap } from '../../../utils/constants';
+import { IMAGE_SOURCE } from '../../../../../common/config';
 
 interface Props {
   servings: number;
@@ -21,7 +23,7 @@ const RecipeMeta: React.FC<Props> = ({ recipe, addServing, removeServing, servin
   let difficulty: JSX.Element[] = [];
 
   for (let i = 0; i < 3; i++) {
-    if (recipe.difficulty > i) {
+    if (enumsMap.get('difficulty')!.indexOf(recipe.difficulty) > i) {
       difficulty.push(
         <img
           key={i}
@@ -45,7 +47,7 @@ const RecipeMeta: React.FC<Props> = ({ recipe, addServing, removeServing, servin
   let cost: JSX.Element[] = [];
 
   for (let i = 0; i < 3; i++) {
-    if (recipe.cost > i) {
+    if (enumsMap.get('cost')!.indexOf(recipe.cost) > i) {
       cost.push(
         <AttachMoneyIcon key={i} style={{ fontSize: '2rem', color: 'rgb(210, 125, 125)', margin: '0 -0.3rem' }} />
       );
@@ -57,7 +59,7 @@ const RecipeMeta: React.FC<Props> = ({ recipe, addServing, removeServing, servin
   }
   return (
     <div className={classes.recipeMeta}>
-      <img src={recipe.pictures[0]} alt={recipe.name} />
+      <img src={IMAGE_SOURCE + recipe.pictures[0]} alt={recipe.title} />
       <div className={classes.extraInfo}>
         <div className={classes.prepTime}>
           <p>Temps de préparation : </p>
