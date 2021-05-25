@@ -3,10 +3,12 @@ import { Type } from '..';
 export default class TypeFactory {
   static create(): Type {
     return {
-      aperitif: false,
-      entree: false,
-      plat: false,
+      appetizer: false,
+      entry: false,
+      meal: false,
       dessert: false,
+      drink: false,
+      other: false,
     };
   }
 }

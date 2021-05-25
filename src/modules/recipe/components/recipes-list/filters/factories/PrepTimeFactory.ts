@@ -3,9 +3,9 @@ import { PrepTime } from '..';
 export default class PrepTimeFactory {
   static create(): PrepTime {
     return {
-      short: false,
+      fast: false,
       medium: false,
-      long: false,
+      slow: false,
     };
   }
 }
