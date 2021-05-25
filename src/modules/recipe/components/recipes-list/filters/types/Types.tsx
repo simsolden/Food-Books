@@ -17,7 +17,7 @@ const Types: React.FC<Props> = ({ onChangeType }) => {
             <input
               name="type"
               type="checkbox"
-              value="aperitif"
+              value="appetizer"
               onChange={(event) => onChangeType(event.target.value)}
             />
           </label>
@@ -25,19 +25,31 @@ const Types: React.FC<Props> = ({ onChangeType }) => {
         <div className={classes.checkbox}>
           <label>
             Entrée
-            <input name="type" type="checkbox" value="entree" onChange={(event) => onChangeType(event.target.value)} />
+            <input name="type" type="checkbox" value="entry" onChange={(event) => onChangeType(event.target.value)} />
           </label>
         </div>
         <div className={classes.checkbox}>
           <label>
             Plat
-            <input name="type" type="checkbox" value="plat" onChange={(event) => onChangeType(event.target.value)} />
+            <input name="type" type="checkbox" value="meal" onChange={(event) => onChangeType(event.target.value)} />
           </label>
         </div>
         <div className={classes.checkbox}>
           <label>
             Dessert
             <input name="type" type="checkbox" value="dessert" onChange={(event) => onChangeType(event.target.value)} />
+          </label>
+        </div>
+        <div className={classes.checkbox}>
+          <label>
+            Boisson
+            <input name="type" type="checkbox" value="drink" onChange={(event) => onChangeType(event.target.value)} />
+          </label>
+        </div>
+        <div className={classes.checkbox}>
+          <label>
+            Autre
+            <input name="type" type="checkbox" value="other" onChange={(event) => onChangeType(event.target.value)} />
           </label>
         </div>
       </div>

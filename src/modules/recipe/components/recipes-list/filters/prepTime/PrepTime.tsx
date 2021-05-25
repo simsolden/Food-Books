@@ -17,7 +17,7 @@ const PrepTime: React.FC<Props> = ({ onChangePrepTime }) => {
             <input
               name="type"
               type="checkbox"
-              value="short"
+              value="fast"
               onChange={(event) => onChangePrepTime(event.target.value)}
             />
           </label>
@@ -39,7 +39,7 @@ const PrepTime: React.FC<Props> = ({ onChangePrepTime }) => {
             <input
               name="type"
               type="checkbox"
-              value="long"
+              value="slow"
               onChange={(event) => onChangePrepTime(event.target.value)}
             />
           </label>

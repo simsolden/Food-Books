@@ -8,6 +8,10 @@
   font-weight: 600;
 }
 
+.filters h2 {
+  margin: 0;
+}
+
 .applyFiltersButton {
   background: #cb6b6b;
   color: white;

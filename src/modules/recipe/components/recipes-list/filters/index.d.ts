@@ -1,18 +1,27 @@
 export interface Type {
-  aperitif: boolean;
-  entree: boolean;
-  plat: boolean;
+  appetizer: boolean;
+  entry: boolean;
+  meal: boolean;
   dessert: boolean;
+  drink: boolean;
+  other: boolean;
 }
 
 export interface PrepTime {
-  short: boolean;
+  fast: boolean;
   medium: boolean;
-  long: boolean;
+  slow: boolean;
 }
 
 export interface Difficulty {
   easy: boolean;
   medium: boolean;
   hard: boolean;
+}
+
+interface Filters {
+  types: string[];
+  categories: string[];
+  difficulty: string[];
+  prepTime: string[];
 }
