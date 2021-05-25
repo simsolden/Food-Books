@@ -1,51 +1,162 @@
-import { Category } from '../../../common';
-import { Dispatch } from '../../../store';
+import { Category, Recipe } from '../../../common/index.d';
+import { Dispatch, RootState } from '../../../store';
+import { instance } from '../../../common/axios';
+import { RecipeFactory } from '../factories/RecipeFactory';
+import { Filters } from '../components/recipes-list/filters';
+import { createRequestUrl } from '../utils/createRequestUrl';
+
+interface recipesPayload {
+  recipes: Recipe[];
+  isLoading: boolean;
+}
+
+interface categoriesPayload {
+  categories: Category[];
+  isLoading: boolean;
+}
 
 type State = {
   categories: Category[];
+  recipes: Recipe[];
+  userRecipes: Recipe[];
+  singleRecipe: Recipe;
+  isLoading: boolean;
+  error: string | null;
+  filters: Filters | null;
+  title: string | null;
+  pagination: any;
 };
 
 const recipe = {
   state: {
-    categories: [
-      {
-        title: 'Asiatique',
-        description: '',
-        pictureUri: 'https://cdn.pixabay.com/photo/2015/11/19/10/38/food-1050813_960_720.jpg',
-      },
-      {
-        title: 'Africaine',
-        description: '',
-        pictureUri: 'https://cdn.pixabay.com/photo/2017/02/19/16/59/tagine-2080272_960_720.jpg',
-      },
-      {
-        title: 'Française',
-        description: '',
-        pictureUri: 'https://cdn.pixabay.com/photo/2016/11/13/05/21/restaurant-1820333_960_720.jpg',
-      },
-      {
-        title: 'Italienne',
-        description: '',
-        pictureUri: 'https://cdn.pixabay.com/photo/2016/09/04/22/07/antipasta-1645401_960_720.jpg',
-      },
-      {
-        title: 'Amérique du nord',
-        description: '',
-        pictureUri: 'https://cdn.pixabay.com/photo/2016/03/26/23/19/hamburger-1281855_960_720.jpg',
-      },
-    ],
+    categories: [],
+    recipes: [],
+    userRecipes: [],
+    singleRecipe: RecipeFactory.createMock(),
+    isLoading: false,
+    error: null,
+    filters: null,
+    title: null,
+    pagination: { currentPage: 1 },
   } as State,
+
   reducers: {
-    setCategories: (state: State, categories: Category[]) => ({ ...state, categories }),
+    setCategories: (state: State, payload: categoriesPayload) => ({
+      ...state,
+      categories: payload.categories,
+      isLoading: payload.isLoading,
+    }),
+    setRecipes: (state: State, payload: recipesPayload) => ({
+      ...state,
+      recipes: payload.recipes,
+      isLoading: payload.isLoading,
+    }),
+    setUserRecipes: (state: State, payload: recipesPayload) => ({
+      ...state,
+      userRecipes: payload.recipes,
+      isLoading: payload.isLoading,
+    }),
+    setSingleRecipe: (state: State, recipe: Recipe) => ({ ...state, singleRecipe: recipe }),
+    setPagination: (state: State, pagination: any) => ({ ...state, pagination }),
+    setIsLoading: (state: State, isLoading: boolean) => ({ ...state, isLoading }),
+    setError: (state: State, error: string | null) => ({ ...state, error }),
+    setFilters: (state: State, filters: Filters) => ({ ...state, filters }),
+    setTitle: (state: State, title: string | null) => ({ ...state, title }),
   },
+
   effects: (dispatch: Dispatch) => ({
-    async fetchCategories(payload: any): Promise<Category[] | undefined> {
+    async fetchCategories(payload: any): Promise<void> {
       try {
-        const result: Category[] = await new Promise((resolve) => setTimeout(resolve, 1000));
-        dispatch.recipe.setCategories(result);
-        return result;
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        const result: any = await instance.get('/categories');
+
+        dispatch.recipe.setCategories({ categories: result.data.result, isLoading: false });
       } catch (error) {
-        console.error(error);
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async fetchRecipes(payload: any, state: RootState): Promise<void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        let url = payload?.query
+          ? payload.query
+          : '/recipes?page=' +
+            state.recipe.pagination.currentPage +
+            createRequestUrl(state.recipe.title, state.recipe.filters);
+
+        const result: any = await instance.get(url);
+        // @ts-ignore
+        dispatch.recipe.setPagination({ ...state.recipe.pagination, ...result.data.pagination });
+        dispatch.recipe.setRecipes({ recipes: result.data.result, isLoading: false });
+      } catch (error) {
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async fetchUserRecipes(payload: any, state: RootState): Promise<void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        let url = payload?.query
+          ? payload.query
+          : '/users/recipes?page=' +
+            state.recipe.pagination.currentPage +
+            createRequestUrl(state.recipe.title, state.recipe.filters);
+
+        const result: any = await instance.get(url);
+
+        // @ts-ignore
+        dispatch.recipe.setPagination({ ...state.recipe.pagination, ...result.data.pagination });
+        dispatch.recipe.setUserRecipes({ recipes: result.data.result, isLoading: false });
+      } catch (error) {
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async fetchOneRecipe(id: string): Promise<void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        const result: any = await instance.get(`/recipes/${id}`);
+
+        dispatch.recipe.setIsLoading(false);
+        dispatch.recipe.setSingleRecipe(result.data.result);
+      } catch (error) {
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async createRecipe(recipePayload: Recipe): Promise<Recipe | void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        const result = await instance.post('/recipes', recipePayload);
+        return result.data.result;
+      } catch (error) {
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async uploadPicture(picture: File): Promise<string | void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        let formData = new FormData();
+        formData.append('image', picture);
+
+        const result = await instance.post('/recipes/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        return result.data;
+      } catch (error) {
+        dispatch.recipe.setError(error.message);
       }
     },
   }),
