@@ -125,6 +125,9 @@ const AddRecipe: React.FC<Props> = (props) => {
   const handleSubmit = async () => {
     setSubmitted(true);
 
+    if (!RecipeFormValidator.validateFullRecipe(recipe)) {
+      return;
+    }
     const recipeToSend: Recipe = { ...recipe };
 
     recipeToSend.categories = recipe.categories.map((category) => {
