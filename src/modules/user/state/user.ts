@@ -30,6 +30,7 @@ const userInfo = {
     setError: (state: State, error: string | null) => ({ ...state, error }),
     logout: (state: State) => {
       localStorage.removeItem('user-token');
+      localStorage.removeItem('user-id');
       return { ...state, isAuthenticated: false, user: UserFactory.create() };
     },
   },
@@ -79,6 +80,26 @@ const userInfo = {
         } else {
           dispatch.user.setError(`Une erreur est survenue: ${error.message}`);
         }
+      }
+    },
+    async checkAuthenticationState(): Promise<void> {
+      const token = localStorage.getItem('user-token');
+
+      if (!token) {
+        dispatch.user.logout();
+        return;
+      }
+
+      attachToken();
+
+      const result = await instance.get('/auto-login');
+
+      dispatch.user.updateUserInfo(result.data.user);
+      dispatch.user.setAuthenticated(true);
+
+      try {
+      } catch (err) {
+        dispatch.user.logout();
       }
     },
   }),
