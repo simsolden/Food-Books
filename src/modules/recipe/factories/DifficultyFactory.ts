@@ -1,4 +1,4 @@
-import { Difficulty } from '..';
+import { Difficulty } from '../../../common/index.d';
 
 export default class DifficultyFactory {
   static create(): Difficulty {

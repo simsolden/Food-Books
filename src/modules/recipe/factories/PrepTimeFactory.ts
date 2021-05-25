@@ -1,4 +1,4 @@
-import { PrepTime } from '..';
+import { PrepTime } from '../../../common/index.d';
 
 export default class PrepTimeFactory {
   static create(): PrepTime {

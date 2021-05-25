@@ -34,7 +34,7 @@ export class RecipeFactory {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget finibus magna. Sed vel feugiat risus. Nullam mollis mi tortor, a viverra ex venenatis vel. Aliquam dapibus, sapien at vehicula facilisis, quam enim bibendum erat, mollis elementum quam risus a arcu. Donec eget lorem nec augue porta eleifend. Nullam in.',
       pictures: ['default-recipe.jpg'],
       type: 'Meal',
-      categories: [0],
+      categories: [1],
       prepSteps: [
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget finibus magna. Sed vel feugiat risus. Nullam mollis mi tortor, a viverra ex venenatis vel. Aliquam dapibus, sapien at vehicula facilisis, quam enim bibendum erat, mollis elementum quam risus a arcu. Donec eget lorem nec augue porta eleifend. Nullam in.',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget finibus magna. Seda viverra ex venenatis vel. Aliquam dapibus, sapien at vehicula facilisis, quam enim bibendum erat, mollis elementum quam risus a arcu. Donec eget lorem nec augue porta eleifend. Nullam in.',

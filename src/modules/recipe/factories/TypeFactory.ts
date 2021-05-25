@@ -1,4 +1,4 @@
-import { Type } from '..';
+import { Type } from '../../../common/index.d';
 
 export default class TypeFactory {
   static create(): Type {
