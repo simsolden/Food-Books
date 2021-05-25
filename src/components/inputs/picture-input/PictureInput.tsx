@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-// import classes from './PictureInput.module.css'
+import { IMAGE_SOURCE } from '../../../common/config';
 
 interface Props {
   onChange: (file: File) => void;
+  picture?: string;
 }
 
-const PictureInput: React.FC<Props> = ({ onChange }) => {
+const PictureInput: React.FC<Props> = ({ picture, onChange }) => {
   let [image, setImage] = useState<File>();
 
   return (
@@ -16,6 +17,7 @@ const PictureInput: React.FC<Props> = ({ onChange }) => {
         id="upload-photo"
         name="upload-photo"
         type="file"
+        accept="image/*"
         onChange={(event) => {
           setImage(event.target.files![0]);
           onChange(event.target.files![0]);
@@ -36,6 +38,12 @@ const PictureInput: React.FC<Props> = ({ onChange }) => {
         {image ? (
           <img
             src={URL.createObjectURL(image)}
+            alt="Recette de l'utilisateur"
+            style={{ width: '14.5rem', height: '14.5rem', objectFit: 'cover' }}
+          />
+        ) : picture ? (
+          <img
+            src={IMAGE_SOURCE + picture}
             alt="Recette de l'utilisateur"
             style={{ width: '14.5rem', height: '14.5rem', objectFit: 'cover' }}
           />
