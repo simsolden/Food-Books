@@ -1,84 +1,52 @@
-import React from 'react';
-import classes from './styles/Home.module.css';
+import React, { useEffect } from 'react';
 import Card from '../../components/card/Card';
-import HomeHeader from './home-header/HomeHeader';
+import logo from '../../assets/logo-white.png';
+import SearchBar from '../../components/inputs/search-bar/SearchBar';
+import classes from './styles/Home.module.css';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Dispatch, RootState } from '../../store';
+import { useRematchDispatch } from '../../hooks/useRematchDispatch';
 
 interface Props {}
 
 const MemberHome: React.FC<Props> = (props) => {
+  const history = useHistory();
+  const recipes = useSelector((state: RootState) => state.recipe.recipes);
+  const userRecipes = useSelector((state: RootState) => state.recipe.userRecipes);
+  const { fetchRecipes, fetchUserRecipes } = useRematchDispatch((dispatch: Dispatch) => ({
+    fetchRecipes: dispatch.recipe.fetchRecipes,
+    fetchUserRecipes: dispatch.recipe.fetchUserRecipes,
+  }));
+
+  useEffect(() => {
+    fetchRecipes();
+    fetchUserRecipes();
+  }, [fetchUserRecipes, fetchRecipes]);
+
+  const lastUserRecipes = userRecipes.map((recipe) => <Card recipe={recipe} key={recipe._id} />).slice(undefined, 4);
+  const lastRecipes = recipes.map((recipe) => <Card recipe={recipe} key={recipe._id} />).slice(undefined, 8);
+
   return (
     <>
       <div className={classes.home}>
-        <HomeHeader />
+        <div className={classes.searchBar}>
+          <SearchBar
+            onSubmit={(input) => {
+              history.push(`/decouvrir?page=1&title=${input}`);
+            }}
+          />
+        </div>
+        <div className={classes.logo}>
+          <img src={logo} alt="Logo food books" />
+        </div>
         <div className={classes.lastRecipes}>
           <h2>Vos dernières recettes</h2>
-          <div className={classes.lastRecipesCards}>
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Tacos maison"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/10/26/14/51/peanuts-1771672_960_720.jpg"
-              title="Fraise"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2014/05/18/11/49/olive-oil-346997_960_720.jpg"
-              title="bouffe"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Rotî à la sauce du chef..."
-            />
-          </div>
+          <div className={classes.lastRecipesCards}>{lastUserRecipes}</div>
         </div>
         <div className={classes.lastRecipes}>
           <h2>Découvrez</h2>
-          <div className={classes.lastRecipesCards}>
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/10/26/14/51/peanuts-1771672_960_720.jpg"
-              title="Fraise"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Tacos maison"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Tacos maison"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2014/05/18/11/49/olive-oil-346997_960_720.jpg"
-              title="bouffe"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Tacos maison"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/10/26/14/51/peanuts-1771672_960_720.jpg"
-              title="Fraise"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2014/05/18/11/49/olive-oil-346997_960_720.jpg"
-              title="bouffe"
-            />
-            <Card
-              type="lastRecipe"
-              pictureURI="https://cdn.pixabay.com/photo/2016/08/23/08/53/tacos-1613795_960_720.jpg"
-              title="Rotî à la sauce du chef..."
-            />
-          </div>
+          <div className={classes.lastRecipesCards}>{lastRecipes}</div>
         </div>
       </div>
     </>

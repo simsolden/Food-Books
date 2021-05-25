@@ -1,14 +1,16 @@
 import React from 'react';
 import classes from './styles/Home.module.css';
-import Card from '../../components/card/Card';
 import SignUp from '../auth/sign-up/SignUp';
 import logo from '../../assets/logo-white.png';
 
 import SearchBar from '../../components/inputs/search-bar/SearchBar';
+import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
 const Home: React.FC<Props> = (props) => {
+  const history = useHistory();
+
   return (
     <div className={classes.home}>
       <div className={classes.logo}>
@@ -16,8 +18,8 @@ const Home: React.FC<Props> = (props) => {
       </div>
       <div className={classes.searchBar}>
         <SearchBar
-          onSubmit={() => {
-            alert('works');
+          onSubmit={(input) => {
+            history.push(`/decouvrir?page=1&title=${input}`);
           }}
         />
       </div>

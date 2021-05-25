@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgba(106, 50, 50, 0.15);
-  padding-top: 2.5rem;
+  background-color: rgba(106, 50, 50, 0.2);
+  padding-top: 2rem;
   min-height: fit-content;
 }
 
@@ -12,12 +12,22 @@
   width: 100%;
 }
 
-.searchBar {
-  width: 60%;
+.joinMessage {
+  background-color: rgba(0, 0, 0, 0.35);
+  width: 75%;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-family: Roboto;
 }
 
-.logo {
-  width: 55%;
+.joinMessage h2 {
+  font-size: 2rem;
+  color: #ffffffc5;
+}
+
+.joinMessage p {
+  color: #ffffffc5;
+  font-size: 1.5rem;
 }
 
 .lastRecipesCards {
@@ -46,20 +56,12 @@
   margin: 1rem;
 }
 
-@media screen and (min-width: 1200px) {
-  .home {
-    height: 100%;
-  }
-
-  .home > * {
-    margin-top: 5rem;
-  }
+.searchBar {
+  width: 60%;
 }
 
-@media screen and (max-width: 1200px) {
-  .home > * {
-    margin-top: 3rem;
-  }
+.logo {
+  width: 60%;
 }
 
 @media screen and (max-width: 800px) {
@@ -69,5 +71,26 @@
 
   .searchBar {
     width: 90%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .home {
+    height: 100%;
+  }
+
+  .home > * {
+    margin-top: 4rem;
+  }
+
+  .joinMessage {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .home > * {
+    margin-top: 3rem;
   }
 }
