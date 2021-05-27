@@ -13,6 +13,37 @@
   margin-top: 0.5rem;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteIcon {
+  align-self: center;
+}
+
+.deleteButton p {
+  margin: 0.5rem;
+}
+
+.deleteButton {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  background: #cb6b6b;
+  color: white;
+  padding: 0 1.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
 .select {
   margin-top: 1rem;
 }
@@ -100,7 +131,14 @@
 
 @media screen and (max-width: 792px) {
   .container {
-    width: 75%;
+    width: 85%;
+    padding: 1.5rem;
+    margin-top: 5.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .header button p {
+    display: none;
   }
 
   .recipeMeta {
@@ -115,9 +153,11 @@
 
   .updateRecipeButton {
     width: 100%;
+    min-width: 100%;
+    padding: 0;
     min-height: fit-content;
     box-shadow: 1px 1px 3px #000000f0;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .addDraftButton {

@@ -10,30 +10,36 @@ import AddIngredient from '../add-recipe/add-ingredient/AddIngredient';
 import { IngredientFactory } from '../../factories/IngredientFactory';
 import AddStep from '../add-recipe/add-step/AddStep';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { useRematchDispatch } from '../../../../hooks/useRematchDispatch';
 import { Dispatch, RootState } from '../../../../store';
 import { useSelector } from 'react-redux';
 import { COST_LABELS, DIFFICULTY_LABELS, enumsMap, TYPE_LABELS } from '../../utils/constants';
 import { useHistory, useParams } from 'react-router-dom';
 import { RecipeRouteParams } from '../../../../common/RouteParams';
+import DeleteRecipe from './delete-recipe/DeleteRecipe';
+import { useModalState } from '../../../../hooks/useModal';
 
 interface Props {}
 
-const UpadteRecipe: React.FC<Props> = (props) => {
+const UpadteRecipe: React.FC<Props> = () => {
   let [picture, setPicture] = useState<File>();
   let [submitted, setSubmitted] = useState(false);
+  const { isOpen, onClose, onOpen } = useModalState();
 
   const recipeId = useParams<RecipeRouteParams>().recipeSlug.split('_')[1];
   const history = useHistory();
   const recipe = useSelector((state: RootState) => state.recipe.singleRecipe);
   const categories = useSelector((state: RootState) => state.recipe.categories);
-  const { setRecipe, fetchOneRecipe, updateRecipe, updatePicture } = useRematchDispatch((dispatch: Dispatch) => ({
-    setRecipe: dispatch.recipe.setSingleRecipe,
-    fetchOneRecipe: dispatch.recipe.fetchOneRecipe,
-    updateRecipe: dispatch.recipe.updateRecipe,
-    // @ts-ignore
-    updatePicture: dispatch.recipe.updatePicture,
-  }));
+  const { setRecipe, fetchOneRecipe, updateRecipe, updatePicture, deleteRecipe } = useRematchDispatch(
+    (dispatch: Dispatch) => ({
+      setRecipe: dispatch.recipe.setSingleRecipe,
+      fetchOneRecipe: dispatch.recipe.fetchOneRecipe,
+      updateRecipe: dispatch.recipe.updateRecipe,
+      updatePicture: dispatch.recipe.updatePicture,
+      deleteRecipe: dispatch.recipe.deleteRecipe,
+    })
+  );
 
   useEffect(() => {
     fetchOneRecipe(recipeId);
@@ -141,8 +147,6 @@ const UpadteRecipe: React.FC<Props> = (props) => {
     }
     const recipeToSend: Recipe = { ...recipe };
 
-    console.log(recipeToSend.categories);
-
     recipeToSend.ingredients = recipe.ingredients.map((ingredient) => {
       if (ingredient.measurement === '') {
         ingredient.measurement = 'other';
@@ -163,139 +167,156 @@ const UpadteRecipe: React.FC<Props> = (props) => {
     }
   };
 
+  const handleDelete = () => {
+    deleteRecipe(recipe._id!);
+    onClose();
+    history.push('/mes-recettes?page=1');
+  };
+
   return (
-    <div className={classes.container}>
-      <h1>Ajouter une recette</h1>
-      <form
-        className={classes.form}
-        noValidate
-        autoComplete="off"
-        onSubmit={(event) => {
-          event.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <h2>Informations de base</h2>
-        <TextInput
-          error={submitted && !RecipeFormValidator.validateName(recipe.title)}
-          errorMessage="Le nom doit faire entre 3 et 40 caratères"
-          label="Nom de la recette"
-          onChange={(input) => handleChange('title', input)}
-          type="text"
-          value={recipe.title}
-        />
-        <div className={classes.recipeMeta}>
-          <PictureInput onChange={setPicture} picture={recipe.pictures[0]} />
-          <div className={classes.extraInfo}>
-            <TextInput
-              error={submitted && !RecipeFormValidator.validatePrepTime(recipe.prepTime)}
-              errorMessage="Veuillez entrez un temps de préparation valide"
-              label="Temps de préparation (minutes)"
-              onChange={(input) => handleChange('prepTime', +input)}
-              type="number"
-              value={recipe.prepTime}
-            />
-            <TextInput
-              error={submitted && !RecipeFormValidator.validateCookingTime(recipe.cookingTime)}
-              errorMessage="Veuillez entrez un temps de cuisson valide"
-              label="Temps de cuisson (minutes)"
-              onChange={(input) => handleChange('cookingTime', +input)}
-              type="number"
-              value={recipe.cookingTime}
-            />
-            <CustomSelect
-              label="Difficulté"
-              currentValue={enumsMap.get('difficulty')!.indexOf(recipe.difficulty)}
-              values={DIFFICULTY_LABELS}
-              onChange={(input) => handleChange('difficulty', +input, 'select')}
-              error={submitted && !RecipeFormValidator.validateEnum('difficulty', recipe.difficulty)}
-              errorMessage="Veuillez choisir une difficulté"
-            />
-            <CustomSelect
-              label="Coût"
-              currentValue={enumsMap.get('cost')!.indexOf(recipe.cost)}
-              values={COST_LABELS}
-              onChange={(input) => handleChange('cost', +input, 'select')}
-              error={submitted && !RecipeFormValidator.validateEnum('cost', recipe.cost)}
-              errorMessage="Veuillez choisir un coût"
-            />
-            <TextInput
-              error={submitted && !RecipeFormValidator.validateServings(recipe.servings)}
-              errorMessage="Veuillez entrez le nombre de portions (entre 1 et 12)"
-              label="Nombre de portions"
-              onChange={(input) => handleChange('servings', +input)}
-              type="number"
-              value={recipe.servings}
-            />
+    <>
+      <DeleteRecipe isOpen={isOpen} onCancel={onClose} onDelete={handleDelete} />
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <h1>Modifier ma recette</h1>
+          <button className={classes.deleteButton} onClick={onOpen}>
+            <DeleteForeverIcon className={classes.deleteIcon} />
+            <p>Supprimer</p>
+          </button>
+        </div>
+        <form
+          className={classes.form}
+          noValidate
+          autoComplete="off"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <h2>Informations de base</h2>
+          <TextInput
+            error={submitted && !RecipeFormValidator.validateName(recipe.title)}
+            errorMessage="Le nom doit faire entre 3 et 60 caratères"
+            label="Nom de la recette"
+            onChange={(input) => handleChange('title', input)}
+            type="text"
+            value={recipe.title}
+          />
+          <div className={classes.recipeMeta}>
+            <PictureInput onChange={setPicture} picture={recipe.pictures[0]} />
+            <div className={classes.extraInfo}>
+              <TextInput
+                error={submitted && !RecipeFormValidator.validatePrepTime(recipe.prepTime)}
+                errorMessage="Veuillez entrez un temps de préparation valide"
+                label="Temps de préparation (minutes)"
+                onChange={(input) => handleChange('prepTime', +input)}
+                type="number"
+                value={recipe.prepTime}
+              />
+              <TextInput
+                error={submitted && !RecipeFormValidator.validateCookingTime(recipe.cookingTime)}
+                errorMessage="Veuillez entrez un temps de cuisson valide"
+                label="Temps de cuisson (minutes)"
+                onChange={(input) => handleChange('cookingTime', +input)}
+                type="number"
+                value={recipe.cookingTime}
+              />
+              <CustomSelect
+                label="Difficulté"
+                currentValue={enumsMap.get('difficulty')!.indexOf(recipe.difficulty)}
+                values={DIFFICULTY_LABELS}
+                onChange={(input) => handleChange('difficulty', +input, 'select')}
+                error={submitted && !RecipeFormValidator.validateEnum('difficulty', recipe.difficulty)}
+                errorMessage="Veuillez choisir une difficulté"
+              />
+              <CustomSelect
+                label="Coût"
+                currentValue={enumsMap.get('cost')!.indexOf(recipe.cost)}
+                values={COST_LABELS}
+                onChange={(input) => handleChange('cost', +input, 'select')}
+                error={submitted && !RecipeFormValidator.validateEnum('cost', recipe.cost)}
+                errorMessage="Veuillez choisir un coût"
+              />
+              <TextInput
+                error={submitted && !RecipeFormValidator.validateServings(recipe.servings)}
+                errorMessage="Veuillez entrez le nombre de portions (entre 1 et 20)"
+                label="Nombre de portions"
+                onChange={(input) => handleChange('servings', +input)}
+                type="number"
+                value={recipe.servings}
+              />
+            </div>
           </div>
-        </div>
-        <TextInput
-          error={submitted && !RecipeFormValidator.validateDescription(recipe.description)}
-          errorMessage="Veuillez entrez un description (max 255 caractères)."
-          label="Description"
-          onChange={(input) => handleChange('description', input)}
-          type="text"
-          multi
-          value={recipe.description}
-        />
-        <h2>Type et catégorie(s) de recette</h2>
-        <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Type</h3>
-        <CustomSelect
-          label="Type de recette"
-          currentValue={enumsMap.get('type')!.indexOf(recipe.type)}
-          values={TYPE_LABELS}
-          onChange={(input) => handleChange('type', +input, 'select')}
-          error={submitted && !RecipeFormValidator.validateEnum('type', recipe.type)}
-          errorMessage="Veuillez choisir un type"
-        />
-        <div className={classes.categories}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Catégorie(s)</h3>
-          {categoriesSelect}
-          <button
-            type="button"
-            title="Ajouter une catégorie"
-            onClick={() => handleAddOrRemoveElement('category')}
-            className={classes.addCategoryButton}
-          >
-            Ajouter une catégorie
-          </button>
-        </div>
-        <h2>Ingrédients et préparation</h2>
-        <div className={classes.ingredients}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Ingrédients</h3>
-          {ingredientsForm}
-          <button
-            type="button"
-            title="Ajouter un ingrédient"
-            onClick={() => handleAddOrRemoveElement('ingredient')}
-            className={classes.addCategoryButton}
-          >
-            Ajouter un ingrédient
-          </button>
-        </div>
-        <div className={classes.ingredients}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Étapes de préparation</h3>
-          {prepStepsForm}
-          <button
-            title="Ajouter une étape"
-            type="button"
-            onClick={() => handleAddOrRemoveElement('prepStep')}
-            className={classes.addCategoryButton}
-          >
-            Ajouter une étape
-          </button>
-        </div>
-        <FormControlLabel
-          value="end"
-          control={<Checkbox color="primary" onChange={(input) => handleChange('isPrivate', !!input.target.checked)} />}
-          label="Enregistrer comme recette privée"
-          labelPlacement="end"
-        />
-        <div className={classes.actionButtons}>
-          <input type="submit" value="Enregistrer les modifications" className={classes.updateRecipeButton} />
-        </div>
-      </form>
-    </div>
+          <TextInput
+            error={submitted && !RecipeFormValidator.validateDescription(recipe.description)}
+            errorMessage="Veuillez entrez un description (max 255 caractères)."
+            label="Description"
+            onChange={(input) => handleChange('description', input)}
+            type="text"
+            multi
+            value={recipe.description}
+          />
+          <h2>Type et catégorie(s) de recette</h2>
+          <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Type</h3>
+          <CustomSelect
+            label="Type de recette"
+            currentValue={enumsMap.get('type')!.indexOf(recipe.type)}
+            values={TYPE_LABELS}
+            onChange={(input) => handleChange('type', +input, 'select')}
+            error={submitted && !RecipeFormValidator.validateEnum('type', recipe.type)}
+            errorMessage="Veuillez choisir un type"
+          />
+          <div className={classes.categories}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Catégorie(s)</h3>
+            {categoriesSelect}
+            <button
+              type="button"
+              title="Ajouter une catégorie"
+              onClick={() => handleAddOrRemoveElement('category')}
+              className={classes.addCategoryButton}
+            >
+              Ajouter une catégorie
+            </button>
+          </div>
+          <h2>Ingrédients et préparation</h2>
+          <div className={classes.ingredients}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Ingrédients</h3>
+            {ingredientsForm}
+            <button
+              type="button"
+              title="Ajouter un ingrédient"
+              onClick={() => handleAddOrRemoveElement('ingredient')}
+              className={classes.addCategoryButton}
+            >
+              Ajouter un ingrédient
+            </button>
+          </div>
+          <div className={classes.ingredients}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Étapes de préparation</h3>
+            {prepStepsForm}
+            <button
+              title="Ajouter une étape"
+              type="button"
+              onClick={() => handleAddOrRemoveElement('prepStep')}
+              className={classes.addCategoryButton}
+            >
+              Ajouter une étape
+            </button>
+          </div>
+          <FormControlLabel
+            value="end"
+            control={
+              <Checkbox color="primary" onChange={(input) => handleChange('isPrivate', !!input.target.checked)} />
+            }
+            label="Enregistrer comme recette privée"
+            labelPlacement="end"
+          />
+          <div className={classes.actionButtons}>
+            <input type="submit" value="Enregistrer les modifications" className={classes.updateRecipeButton} />
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -1,0 +1,49 @@
+.confirmationDialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.confirmationDialog h2 {
+  margin: 0.5rem;
+}
+
+.confirmButton,
+.cancelButton {
+  background: #b76565;
+  color: white;
+  margin: 0.5rem 1rem;
+  padding: 0 1rem;
+  height: 2rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px #000000f0;
+  font-size: large;
+  letter-spacing: 0.2rem;
+}
+
+.cancelButton {
+  background: #b29c9c;
+}
+
+.confirmationDialog button:hover,
+.cancelButton button:hover {
+  transform: scale(1.025);
+  filter: brightness(1.05);
+}
+
+.confirmationDialog button:active,
+.cancelButton button:hover {
+  transform: scale(1);
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-evenly;
+}
