@@ -18,6 +18,29 @@
   flex-wrap: wrap;
 }
 
+.noPlanning {
+  display: flex;
+  font-family: lora;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  background-color: rgb(245, 239, 239);
+  border-radius: 0.5rem;
+  color: black;
+  margin: 2rem;
+  text-align: center;
+}
+
+.noPlanning a {
+  color: #782828;
+}
+
+.helpIcon {
+  margin-right: 1rem;
+  align-self: center;
+  font-size: 2rem;
+  color: rgb(200, 123, 123);
+}
+
 .planningDay {
   width: 25%;
 }
