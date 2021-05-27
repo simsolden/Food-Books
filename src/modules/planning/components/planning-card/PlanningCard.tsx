@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlanningRecipe } from '../../../../common';
-import CardRecipeItem from '../card-recipe-item/CardRecipeItem';
+import CardRecipeItem from './card-recipe-item/CardRecipeItem';
 import classes from './PlanningCard.module.css';
 
 interface Props {

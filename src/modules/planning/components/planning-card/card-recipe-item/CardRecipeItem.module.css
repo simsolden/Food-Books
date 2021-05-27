@@ -10,6 +10,10 @@
   border-radius: 0.3rem;
 }
 
+.recipeItem button:focus-visible {
+  outline: none;
+}
+
 .recipeImg {
   width: 3.5rem;
   height: 3.5rem;

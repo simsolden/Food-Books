@@ -14,6 +14,7 @@ const AddRecipeModal: React.FC<Props> = ({ onClose, onSave }) => {
   const [date, setDate] = useState(new Date());
   const [submitted, setSubmitted] = useState(false);
   const [isRecipeSaved, setIsRecipeSaved] = useState(false);
+
   const handleChange = (date: MaterialUiPickersDate) => {
     if (date) {
       setDate(date);
@@ -25,6 +26,9 @@ const AddRecipeModal: React.FC<Props> = ({ onClose, onSave }) => {
     if (PlanningFormValidator.validateDate(date)) {
       onSave(date);
       setIsRecipeSaved(true);
+      setTimeout(() => {
+        setIsRecipeSaved(false);
+      }, 2000);
     }
   };
 
