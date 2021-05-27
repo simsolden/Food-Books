@@ -4,7 +4,7 @@ import classes from './Footer.module.css';
 
 interface Props {}
 
-const Footer: React.FC<Props> = (props) => {
+const Footer: React.FC<Props> = () => {
   const year = new Date().toLocaleDateString(undefined, { year: 'numeric' });
   return (
     <div className={classes.footer}>

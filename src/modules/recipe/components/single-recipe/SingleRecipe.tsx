@@ -12,7 +12,7 @@ interface Props {
   isUserRecipe: boolean;
 }
 
-const SingleRecipe: React.FC<Props> = (props) => {
+const SingleRecipe: React.FC<Props> = () => {
   const { recipeSlug } = useParams<RecipeRouteParams>();
   const id = recipeSlug.split('_')[1];
 

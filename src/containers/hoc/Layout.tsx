@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from '../../components/navigation/Footer/Footer';
 import SideDrawer from '../../components/navigation/SideDrawer/SideDrawer';
@@ -8,6 +8,10 @@ import { RootState } from '../../store';
 const Layout: React.FC = (props) => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
   const [showSideDrawer, setShowSideDrawer] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   const sideDrawerClosedHandler = () => {
     setShowSideDrawer(false);

@@ -17,6 +17,7 @@
 
 .prepTime p strong,
 .cookingTime p strong {
+  font-family: roboto;
   font-size: 1rem;
   background-color: white;
   border-radius: 0.5rem;

@@ -6,7 +6,7 @@ import { Dispatch } from '../../../store';
 
 interface Props {}
 
-const Logout: React.FC<Props> = (props) => {
+const Logout: React.FC<Props> = () => {
   const { logout } = useRematchDispatch((dispatch: Dispatch) => ({
     logout: dispatch.user.logout,
   }));

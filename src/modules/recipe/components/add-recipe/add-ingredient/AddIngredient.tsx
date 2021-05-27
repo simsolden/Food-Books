@@ -20,7 +20,7 @@ const AddIngredient: React.FC<Props> = ({ error, onRemove, ingredient, onChangeI
     <>
       <div className={classes.singleIndredient}>
         <TextInput
-          error={error && ingredient.quantity <= 0}
+          error={error && ingredient.quantity < 0}
           errorMessage="Veuillez entrez une quantité"
           label="Quantité"
           onChange={(input) => onChangeIngredient('quantity', input)}

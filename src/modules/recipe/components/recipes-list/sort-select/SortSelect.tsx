@@ -6,7 +6,7 @@ import classes from './SortSelect.module.css';
 
 interface Props {}
 
-const SortSelect: React.FC<Props> = (props) => {
+const SortSelect: React.FC<Props> = () => {
   const location = useLocation();
   const history = useHistory();
 

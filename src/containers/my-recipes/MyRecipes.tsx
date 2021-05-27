@@ -7,7 +7,7 @@ import RecipesPage from '../hoc/RecipesPage';
 
 interface Props {}
 
-const MyRecipes: React.FC<Props> = (props) => {
+const MyRecipes: React.FC<Props> = () => {
   const history = useHistory();
   const recipes = useSelector((state: RootState) => state.recipe.userRecipes);
   const search = new URLSearchParams(useLocation().search);

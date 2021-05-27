@@ -1,7 +1,6 @@
 .navigationItem a {
   color: #fff;
   text-decoration: none;
-  font: Roboto;
   margin: 0px 10px;
   padding: 10px 10px;
   position: relative;
@@ -15,7 +14,7 @@
   position: absolute;
   opacity: 0;
   width: 0%;
-  height: 0.5px;
+  height: 1px;
   content: '';
   background: rgb(241, 230, 230);
   transition: all 0.3s;

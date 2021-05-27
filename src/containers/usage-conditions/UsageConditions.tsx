@@ -3,7 +3,7 @@ import classes from './UsageConditions.module.css';
 
 interface Props {}
 
-const UsageConditions: React.FC<Props> = (props) => {
+const UsageConditions: React.FC<Props> = () => {
   return (
     <div className={classes.container}>
       <h1 id="conditions-utilisation">Conditions générales d'utilisation</h1>

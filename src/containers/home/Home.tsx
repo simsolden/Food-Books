@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
-const Home: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = () => {
   const history = useHistory();
 
   return (

@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
-const AddRecipe: React.FC<Props> = (props) => {
+const AddRecipe: React.FC<Props> = () => {
   let [recipe, setRecipe] = useState<Recipe>(RecipeFactory.create());
   let [picture, setPicture] = useState<File>();
   let [submitted, setSubmitted] = useState(false);
@@ -169,7 +169,7 @@ const AddRecipe: React.FC<Props> = (props) => {
         <h2>Informations de base</h2>
         <TextInput
           error={submitted && !RecipeFormValidator.validateName(recipe.title)}
-          errorMessage="Le nom doit faire entre 3 et 40 caratères"
+          errorMessage="Le nom doit faire entre 3 et 60 caratères"
           label="Nom de la recette"
           onChange={(input) => handleChange('title', input)}
           type="text"
@@ -209,7 +209,7 @@ const AddRecipe: React.FC<Props> = (props) => {
             />
             <TextInput
               error={submitted && !RecipeFormValidator.validateServings(recipe.servings)}
-              errorMessage="Veuillez entrez le nombre de portions (entre 1 et 12)"
+              errorMessage="Veuillez entrez le nombre de portions (entre 1 et 20)"
               label="Nombre de portions"
               onChange={(input) => handleChange('servings', +input)}
               type="number"
@@ -225,7 +225,7 @@ const AddRecipe: React.FC<Props> = (props) => {
           multi
         />
         <h2>Type et catégorie(s) de recette</h2>
-        <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Type</h3>
+        <h3>Type</h3>
         <CustomSelect
           label="Type de recette"
           currentValue={enumsMap.get('type')!.indexOf(recipe.type)}
@@ -235,7 +235,7 @@ const AddRecipe: React.FC<Props> = (props) => {
           errorMessage="Veuillez choisir un type"
         />
         <div className={classes.categories}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: 0 }}>Catégorie(s)</h3>
+          <h3>Catégorie(s)</h3>
           {categoriesSelect}
           <button
             type="button"
@@ -248,7 +248,7 @@ const AddRecipe: React.FC<Props> = (props) => {
         </div>
         <h2>Ingrédients et préparation</h2>
         <div className={classes.ingredients}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Ingrédients</h3>
+          <h3 style={{ marginBottom: '0.5rem' }}>Ingrédients</h3>
           {ingredientsForm}
           <button
             type="button"
@@ -260,7 +260,7 @@ const AddRecipe: React.FC<Props> = (props) => {
           </button>
         </div>
         <div className={classes.ingredients}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Étapes de préparation</h3>
+          <h3>Étapes de préparation</h3>
           {prepStepsForm}
           <button
             title="Ajouter une étape"

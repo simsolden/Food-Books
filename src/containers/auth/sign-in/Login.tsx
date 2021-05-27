@@ -9,7 +9,7 @@ import classes from './Login.module.css';
 
 interface Props {}
 
-const Login: React.FC<Props> = (props) => {
+const Login: React.FC<Props> = () => {
   const { authenticate } = useRematchDispatch((dispatch: Dispatch) => ({
     authenticate: dispatch.user.authenticate,
   }));

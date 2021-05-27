@@ -37,9 +37,11 @@ const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
       history.push('/login');
       return;
     }
-    // @ts-ignore
+
     const success = await addPlanningRecipe({ planningRecipe: { recipeId: recipe._id, date } });
-    setTimeout(onClose, 2500);
+
+    setTimeout(onClose, 1500);
+
     return success;
   };
 
@@ -54,7 +56,7 @@ const RecipeItem: React.FC<Props> = ({ recipe, isUserRecipe }) => {
         </Link>
         <div className={classes.recipeInfo}>
           <div className={classes.firstRow}>
-            <Link className={classes.title} to={slug}>
+            <Link className={classes.title} to={match.url + slug}>
               <h2>{recipe.title}</h2>
             </Link>
             <div className={classes.actionButtons}>

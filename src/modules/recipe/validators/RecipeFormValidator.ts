@@ -7,7 +7,7 @@ export default class RecipeFormValidator {
   }
 
   static validateName(inputValue: string) {
-    return RecipeFormValidator.minMax(inputValue.length, 3, 40);
+    return RecipeFormValidator.minMax(inputValue.length, 3, 60);
   }
 
   static validatePrepTime(inputValue: number) {
@@ -23,7 +23,7 @@ export default class RecipeFormValidator {
   }
 
   static validateServings = (inputValue: number) => {
-    return RecipeFormValidator.minMax(inputValue, 1, 12);
+    return RecipeFormValidator.minMax(inputValue, 1, 20);
   };
 
   static validateDescription = (inputValue: string) => {
@@ -31,7 +31,7 @@ export default class RecipeFormValidator {
   };
 
   static validateIngredient = (ingredient: Ingredient) => {
-    return ingredient.quantity !== 0 && ingredient.name.length >= 2;
+    return ingredient.quantity >= 0 && ingredient.name.length >= 2;
   };
 
   static validateStepDescription = (stepDescription: string) => {

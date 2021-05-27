@@ -5,19 +5,19 @@ import { useRematchDispatch } from '../../../hooks/useRematchDispatch';
 import TextInput from '../../../components/inputs/text-input/TextInput';
 import { UserFactory } from '../../../modules/user/factories/UserFactory';
 import UserFormValidator from '../../../modules/user/validators/UserFormValidator';
-import { Dispatch } from '../../../store';
+import { Dispatch, RootState } from '../../../store';
 import { DatePicker } from '@material-ui/pickers';
 import classes from './SignUp.module.css';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { materialTheme } from '../../../common/datepicker/datePickerTheme';
+import { useSelector } from 'react-redux';
 
 interface Props {}
 
-const SignUp: React.FC<Props> = (props) => {
-  const { signUp } = useRematchDispatch((dispatch: Dispatch) => ({
-    signUp: dispatch.user.signUp,
-  }));
+const SignUp: React.FC<Props> = () => {
+  const signUp = useRematchDispatch((dispatch: Dispatch) => dispatch.user.signUp);
+  const error = useSelector((state: RootState) => state.user.error);
 
   let [user, setUser] = useState<User>(UserFactory.create());
   let [passwordConf, setPasswordConf] = useState('');
@@ -29,6 +29,7 @@ const SignUp: React.FC<Props> = (props) => {
 
   const handleChange = (fieldName: string, inputValue: string | MaterialUiPickersDate) => {
     let tempUser = { ...user };
+
     // @ts-ignore
     tempUser[fieldName] = inputValue;
     setUser(tempUser);
@@ -83,8 +84,8 @@ const SignUp: React.FC<Props> = (props) => {
           <p className={classes.unvalidDate}>Date non valide</p>
         )}
         <TextInput
-          error={submitted && user.username.length < 6}
-          errorMessage="Pseudo incorrect ou manquant (min 6 lettres.)"
+          error={submitted && user.username.length < 3}
+          errorMessage="Pseudo incorrect ou manquant (min 3 lettres.)"
           label="Pseudo"
           onChange={(input) => handleChange('username', input)}
           type="username"
@@ -118,6 +119,7 @@ const SignUp: React.FC<Props> = (props) => {
             conditions d'utilisation
           </Link>
         </p>
+        {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
         <input type="submit" value="Connexion" className={classes.signUpButton} />
       </form>
     </div>

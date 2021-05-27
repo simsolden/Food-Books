@@ -15,7 +15,9 @@ export const getFullTime = (time: number) => {
 export const getIngredientText = (ingredient: Ingredient, servings: number, recipeServings: number) => {
   const vowels = ['a', 'â', 'e', 'é', 'è', 'ê', 'i', 'î', 'o', 'ô', 'u', 'û', 'ù', 'y'];
 
-  let ingredientText = `${(ingredient.quantity / recipeServings) * servings} `;
+  let ingredientText = ingredient.quantity
+    ? `${(Math.round((ingredient.quantity / recipeServings) * 100) / 100) * servings} `
+    : '';
 
   if (ingredient.measurement !== 'other') {
     ingredientText += `${ingredient.measurement} `;

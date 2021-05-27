@@ -7,7 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 interface Props {}
 
-const Recipes: React.FC<Props> = (props) => {
+const Recipes: React.FC<Props> = () => {
   const history = useHistory();
   const recipes = useSelector((state: RootState) => state.recipe.recipes);
   const search = new URLSearchParams(useLocation().search);

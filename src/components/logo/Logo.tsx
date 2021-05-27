@@ -5,7 +5,7 @@ import classes from './Logo.module.css';
 
 interface Props {}
 
-const Logo: React.FC<Props> = (props) => {
+const Logo: React.FC<Props> = () => {
   return (
     <div className={classes.logo}>
       <NavLink to="/">
