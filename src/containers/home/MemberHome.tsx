@@ -3,14 +3,14 @@ import Card from '../../components/card/Card';
 import logo from '../../assets/logo-white.png';
 import SearchBar from '../../components/inputs/search-bar/SearchBar';
 import classes from './styles/Home.module.css';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../store';
 import { useRematchDispatch } from '../../hooks/useRematchDispatch';
 
 interface Props {}
 
-const MemberHome: React.FC<Props> = (props) => {
+const MemberHome: React.FC<Props> = () => {
   const history = useHistory();
   const recipes = useSelector((state: RootState) => state.recipe.recipes);
   const userRecipes = useSelector((state: RootState) => state.recipe.userRecipes);
@@ -24,8 +24,26 @@ const MemberHome: React.FC<Props> = (props) => {
     fetchUserRecipes();
   }, [fetchUserRecipes, fetchRecipes]);
 
-  const lastUserRecipes = userRecipes.map((recipe) => <Card recipe={recipe} key={recipe._id} />).slice(undefined, 4);
-  const lastRecipes = recipes.map((recipe) => <Card recipe={recipe} key={recipe._id} />).slice(undefined, 8);
+  const lastUserRecipes = userRecipes
+    .map((recipe) => {
+      const slug = `mes-recettes/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
+      return (
+        <Link to={slug} style={{ width: 'fit-content' }}>
+          <Card recipe={recipe} key={recipe._id} />
+        </Link>
+      );
+    })
+    .slice(undefined, 4);
+  const lastRecipes = recipes
+    .map((recipe) => {
+      const slug = `decouvrir/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
+      return (
+        <Link to={slug}>
+          <Card recipe={recipe} key={recipe._id} />
+        </Link>
+      );
+    })
+    .slice(undefined, 8);
 
   return (
     <>
@@ -42,7 +60,16 @@ const MemberHome: React.FC<Props> = (props) => {
         </div>
         <div className={classes.lastRecipes}>
           <h2>Vos dernières recettes</h2>
-          <div className={classes.lastRecipesCards}>{lastUserRecipes}</div>
+          <div className={classes.lastRecipesCards}>
+            {lastUserRecipes.length ? (
+              lastUserRecipes
+            ) : (
+              <p className={classes.noRecipes}>
+                Il semblerait que vous n'ayez pas encore de recettes, n'hésitez pas à en ajouter via la page{' '}
+                <Link to="mes-recettes?page=1">Mes Recettes</Link>!
+              </p>
+            )}
+          </div>
         </div>
         <div className={classes.lastRecipes}>
           <h2>Découvrez</h2>

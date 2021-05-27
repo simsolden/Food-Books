@@ -48,12 +48,30 @@
 .lastRecipes h2 {
   text-align: center;
   color: white;
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-weight: 370;
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   letter-spacing: 0.5rem;
   text-shadow: 1px 1px black;
   margin: 1rem;
+}
+
+.noRecipes {
+  padding: 2rem;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.854);
+  border-radius: 0.5rem;
+  color: #3a2323;
+  margin: 2rem;
+  text-align: center;
+}
+
+.noRecipes a {
+  color: #953838;
+}
+
+.noRecipes a:hover {
+  color: #291246;
 }
 
 .searchBar {
