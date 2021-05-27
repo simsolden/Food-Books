@@ -11,6 +11,7 @@ import Logout from './containers/auth/logout/Logout';
 import { useRematchDispatch } from './hooks/useRematchDispatch';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import FallBack from './components/fallback/FallBack';
 
 const Categories = lazy(() => import('./containers/categories/Categories'));
 const SignIn = lazy(() => import('./containers/auth/sign-in/Login'));
@@ -68,7 +69,7 @@ const App: React.FC = () => {
     <>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
         <Layout>
-          <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
+          <Suspense fallback={<FallBack />}>{routes}</Suspense>
         </Layout>
       </MuiPickersUtilsProvider>
     </>
