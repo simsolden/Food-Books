@@ -78,6 +78,7 @@ export interface Recipe {
 }
 
 export interface PlanningRecipe {
+  _id?: string;
   recipe: Recipe;
   date: Date;
 }

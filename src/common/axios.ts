@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { API_SOURCE } from './config';
 import HttpException from './HttpException';
 
 export const instance = axios.create({
-  baseURL: 'http://192.168.0.166:3030',
+  baseURL: API_SOURCE,
   timeout: 5000,
 });
 
