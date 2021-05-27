@@ -1,6 +1,14 @@
 import { PlanningRecipe, Recipe } from '../../../common';
 import { Dispatch, RootState } from '../../../store';
 import { instance } from '../../../common/axios';
+import Planning from '../../../containers/planning/Planning';
+
+interface planningRecipePayload {
+  planningRecipe: {
+    recipeId: string | undefined;
+    date: Date;
+  };
+}
 
 type State = {
   planning: PlanningRecipe[];
@@ -22,7 +30,7 @@ const planning = {
   },
 
   effects: (dispatch: Dispatch) => ({
-    async fetchPlanning(payload: any, state: RootState): Promise<void> {
+    async fetchPlanning(): Promise<void> {
       try {
         dispatch.recipe.setError(null);
         dispatch.recipe.setIsLoading(true);
@@ -31,22 +39,49 @@ const planning = {
 
         const planning = result.data.userPlanning.planning.map((planningRecipe: any) => {
           const recipe = result.data.recipes.find((recipe: Recipe) => recipe._id === planningRecipe.recipeId);
-          return { recipe, date: planningRecipe.date };
+          return { _id: planningRecipe._id, recipe, date: planningRecipe.date };
         });
 
         dispatch.planning.setPlanning(planning);
+        dispatch.recipe.setIsLoading(false);
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
-    async addPlanningRecipe(payload: any, state: RootState): Promise<boolean> {
+    async addPlanningRecipe(payload: planningRecipePayload): Promise<boolean> {
       try {
         dispatch.recipe.setError(null);
         dispatch.recipe.setIsLoading(true);
 
-        await instance.put('/planning', payload);
+        await instance.post('/users/planning', payload);
+        dispatch.recipe.setIsLoading(false);
+
         return true;
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
+        dispatch.recipe.setError(error.message);
+
+        return false;
+      }
+    },
+    async updatePlanning(payload: PlanningRecipe[]): Promise<boolean> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        const planning = payload.map((planningRecipe) => ({
+          _id: planningRecipe._id,
+          recipeId: planningRecipe.recipe._id,
+          date: planningRecipe.date,
+        }));
+
+        await instance.put('/users/planning', { planning });
+        dispatch.planning.setPlanning(payload);
+        dispatch.recipe.setIsLoading(false);
+        return true;
+      } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
         return false;
       }
