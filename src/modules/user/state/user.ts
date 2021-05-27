@@ -2,15 +2,8 @@ import { AxiosResponse } from 'axios';
 import { User } from '../../../common';
 import { attachToken, instance } from '../../../common/axios';
 import HttpException from '../../../common/HttpException';
-import { Dispatch } from '../../../store';
+import { Dispatch, RootState } from '../../../store';
 import { UserFactory } from '../factories/UserFactory';
-
-type userResponse = {
-  data: {
-    user: User;
-    token: string;
-  };
-};
 
 type State = {
   user: User;
@@ -59,28 +52,33 @@ const userInfo = {
           }
         });
     },
-    async signUp(user: User): Promise<void> {
-      try {
-        dispatch.user.setError(null);
+    async signUp(user: User, state: RootState): Promise<void> {
+      dispatch.user.setError(null);
 
-        const userResponse: userResponse = await instance.post('/users', user);
+      instance
+        .post('/users', user)
+        .then((response: AxiosResponse) => {
+          localStorage.setItem('user-token', response.data.token);
+          localStorage.setItem('user-id', response.data.user._id!);
 
-        localStorage.setItem('user-token', userResponse.data.token);
-        localStorage.setItem('user-id', userResponse.data.user._id!);
+          attachToken();
 
-        attachToken();
+          dispatch.user.updateUserInfo(response.data.user);
+          dispatch.user.setAuthenticated(true);
+        })
+        .catch((error: HttpException) => {
+          dispatch.user.setAuthenticated(false);
 
-        dispatch.user.updateUserInfo(userResponse.data.user);
-        dispatch.user.setAuthenticated(true);
-      } catch (error) {
-        dispatch.user.setAuthenticated(false);
-
-        if (error.statusCode === 401) {
-          dispatch.user.setError('Identifiants ou informations invalides');
-        } else {
-          dispatch.user.setError(`Une erreur est survenue: ${error.message}`);
-        }
-      }
+          if (error.statusCode === 401) {
+            dispatch.user.setError('Identifiants ou informations invalides');
+          } else {
+            if (error.message.includes('email') || error.message.includes('username')) {
+              dispatch.user.setError(`Email ou nom d'utilisateur déjà utilisé`);
+            } else {
+              dispatch.user.setError(`Une erreur est survenue: ${error.message}`);
+            }
+          }
+        });
     },
     async checkAuthenticationState(): Promise<void> {
       const token = localStorage.getItem('user-token');

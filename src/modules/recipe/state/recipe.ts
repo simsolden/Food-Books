@@ -76,6 +76,7 @@ const recipe = {
 
         dispatch.recipe.setCategories({ categories: result.data.result, isLoading: false });
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -96,6 +97,7 @@ const recipe = {
         dispatch.recipe.setPagination({ ...result.data.pagination });
         dispatch.recipe.setRecipes({ recipes: result.data.result, isLoading: false });
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -117,6 +119,7 @@ const recipe = {
         dispatch.recipe.setPagination({ ...result.data.pagination });
         dispatch.recipe.setUserRecipes({ recipes: result.data.result, isLoading: false });
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -130,6 +133,7 @@ const recipe = {
         dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setSingleRecipe(result.data.result);
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -139,7 +143,24 @@ const recipe = {
         dispatch.recipe.setIsLoading(true);
 
         const result = await instance.post('/recipes', recipePayload);
+
+        dispatch.recipe.setIsLoading(false);
+
         return result.data.result;
+      } catch (error) {
+        dispatch.recipe.setIsLoading(false);
+
+        dispatch.recipe.setError(error.message);
+      }
+    },
+    async deleteRecipe(recipeId: string): Promise<void> {
+      try {
+        dispatch.recipe.setError(null);
+        dispatch.recipe.setIsLoading(true);
+
+        await instance.delete(`/recipes/${recipeId}`);
+
+        dispatch.recipe.setIsLoading(false);
       } catch (error) {
         dispatch.recipe.setError(error.message);
       }
@@ -150,8 +171,12 @@ const recipe = {
         dispatch.recipe.setIsLoading(true);
 
         const result = await instance.put(`/recipes/${recipePayload._id}`, recipePayload);
+
+        dispatch.recipe.setIsLoading(false);
+
         return result.data.result;
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -169,8 +194,11 @@ const recipe = {
           },
         });
 
+        dispatch.recipe.setIsLoading(false);
+
         return result.data;
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
@@ -182,7 +210,6 @@ const recipe = {
         let formData = new FormData();
         formData.append('image', picture);
         formData.append('oldPicture', state.recipe.singleRecipe.pictures[0]);
-        console.log(formData);
 
         const result = await instance.post('/recipes/update-picture', formData, {
           headers: {
@@ -190,8 +217,11 @@ const recipe = {
           },
         });
 
+        dispatch.recipe.setIsLoading(false);
+
         return result.data;
       } catch (error) {
+        dispatch.recipe.setIsLoading(false);
         dispatch.recipe.setError(error.message);
       }
     },
