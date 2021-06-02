@@ -15,7 +15,7 @@ And documented here: https://app.swaggerhub.com/apis-docs/foodbooks.fr/FoodBooks
 
 ## Available Scripts
 
-In the project directory, you can run:
+Once the API is launched on a server, in the project directory, you can run:
 
 ### `yarn install`
 
