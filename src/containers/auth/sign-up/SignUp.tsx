@@ -69,6 +69,8 @@ const SignUp: React.FC<Props> = () => {
         <ThemeProvider theme={materialTheme}>
           <DatePicker
             error={submitted && !UserFormValidator.validateBirthdate(user)}
+            minDate={new Date(+new Date() - 120 * 365 * 24 * 60 * 60 * 1000)}
+            maxDate={new Date(+new Date() - 8 * 365 * 24 * 60 * 60 * 1000)}
             invalidDateMessage={null}
             fullWidth
             openTo="year"

@@ -66,10 +66,10 @@ const UpdateRecipeModal: React.FC<Props> = ({ onClose, onSave, onDelete, recipeD
           />
           {submitted && !PlanningFormValidator.validateDate(date) && <p style={{ color: 'red' }}></p>}
           <div className={classes.actionButtons}>
-            <button title="supprimer" onClick={handleDelete} className={classes.deleteButton}>
+            <button onClick={handleDelete} className={classes.deleteButton}>
               Supprimer
             </button>
-            <button title="enregistrer" onClick={handleSave} className={classes.saveButton}>
+            <button onClick={handleSave} className={classes.saveButton}>
               Enregistrer
             </button>
           </div>

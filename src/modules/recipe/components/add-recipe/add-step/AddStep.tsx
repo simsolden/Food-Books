@@ -25,11 +25,11 @@ const AddStep: React.FC<Props> = ({ stepDescription, onChangeDescription, error,
         multi
       />
       <IconButton
-        aria-label="remove category"
+        aria-label="remove step"
         component="span"
         style={{ margin: 'auto', color: '#bc5252' }}
         onClick={onRemove}
-        title="Supprimer la catégorie"
+        title="Supprimer l'étape"
       >
         <HighlightOffIcon />
       </IconButton>

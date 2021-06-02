@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import RecipesPage from '../hoc/RecipesPage';
+import RecipesPage from '../../modules/recipe/components/recipes-page/RecipesPage';
 import { useSelector } from 'react-redux';
 import { useRematchDispatch } from '../../hooks/useRematchDispatch';
 import { RootState, Dispatch } from '../../store';

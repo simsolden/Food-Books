@@ -8,7 +8,7 @@ export class UserFactory {
       lastname: '',
       email: '',
       role: 'user',
-      birthdate: new Date(),
+      birthdate: new Date('2000-01-01'),
       pictureUri: 'default-avatar.jpg',
       password: '',
     };

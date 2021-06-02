@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useRematchDispatch } from '../../hooks/useRematchDispatch';
 import { Dispatch, RootState } from '../../store';
-import RecipesPage from '../hoc/RecipesPage';
+import RecipesPage from '../../modules/recipe/components/recipes-page/RecipesPage';
 
 interface Props {}
 
-const MyRecipes: React.FC<Props> = () => {
+const Discover: React.FC<Props> = () => {
   const history = useHistory();
   const recipes = useSelector((state: RootState) => state.recipe.userRecipes);
   const search = new URLSearchParams(useLocation().search);
@@ -37,4 +37,4 @@ const MyRecipes: React.FC<Props> = () => {
   return <RecipesPage isUserRecipes recipes={recipes} onSearch={handleSearch} />;
 };
 
-export default MyRecipes;
+export default Discover;

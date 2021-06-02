@@ -1,36 +1,3 @@
-// export enum Difficulty {
-//   Easy = 1,
-//   Medium,
-//   Difficult,
-// }
-
-// export enum Cost {
-//   Low = 1,
-//   Medium,
-//   Pricy,
-// }
-
-// export enum RecipeType {
-//   Appetizer = 1,
-//   Entry,
-//   Meal,
-//   Dessert,
-//   Drink,
-//   Other,
-// }
-
-// export enum Measurement {
-//   None,
-//   Kilo,
-//   Gram,
-//   Liter,
-//   Centiliter,
-//   Mililiter,
-//   TeaSpoon,
-//   TableSpoon,
-//   Pack,
-// }
-
 export interface User {
   _id?: string;
   role: string;

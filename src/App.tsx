@@ -5,8 +5,8 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { Dispatch, RootState } from './store';
 import Home from './containers/home/Home';
 import MemberHome from './containers/home/MemberHome';
-import Recipes from './containers/recipes/Recipes';
-import Layout from './containers/hoc/Layout';
+import Discover from './containers/discover/Discover';
+import Layout from './hoc/Layout';
 import Logout from './containers/auth/logout/Logout';
 import { useRematchDispatch } from './hooks/useRematchDispatch';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       <Route path="/" exact component={Home} />
       <Route path="/categories" exact component={Categories} />
       <Route path="/decouvrir/:recipeSlug" exact component={SingleRecipe} />
-      <Route path="/decouvrir" exact component={Recipes} />
+      <Route path="/decouvrir" exact component={Discover} />
       <Route path="/login" exact component={SignIn} />
       <Route path="/conditions" exact component={UsageConditions} />
       <Redirect to="/" />
@@ -51,7 +51,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path="/" exact component={MemberHome} />
         <Route path="/categories" exact component={Categories} />
-        <Route path="/decouvrir" exact component={Recipes} />
+        <Route path="/decouvrir" exact component={Discover} />
         <Route path="/decouvrir/:recipeSlug" exact component={SingleRecipe} />
         <Route path="/mes-recettes/ajouter" exact component={AddRecipe} />
         <Route path="/mes-recettes" exact component={MyRecipes} />

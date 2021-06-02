@@ -15,7 +15,7 @@ import { useRematchDispatch } from '../../../../hooks/useRematchDispatch';
 import { Dispatch, RootState } from '../../../../store';
 import { useSelector } from 'react-redux';
 import { COST_LABELS, DIFFICULTY_LABELS, enumsMap, TYPE_LABELS } from '../../utils/constants';
-import { useHistory, useParams } from 'react-router-dom';
+import { Prompt, useHistory, useParams } from 'react-router-dom';
 import { RecipeRouteParams } from '../../../../common/RouteParams';
 import DeleteRecipe from './delete-recipe/DeleteRecipe';
 import { useModalState } from '../../../../hooks/useModal';
@@ -168,14 +168,19 @@ const UpadteRecipe: React.FC<Props> = () => {
   };
 
   const handleDelete = () => {
+    setSubmitted(true);
+    submitted = true;
     deleteRecipe(recipe._id!);
     onClose();
-    history.push('/mes-recettes?page=1');
+    if (submitted) {
+      history.push('/mes-recettes?page=1');
+    }
   };
 
   return (
     <>
       <DeleteRecipe isOpen={isOpen} onCancel={onClose} onDelete={handleDelete} />
+      <Prompt message="Quitter la page? Tous les changements seront perdus" when={!submitted} />
       <div className={classes.container}>
         <div className={classes.header}>
           <h1>Modifier ma recette</h1>
@@ -271,7 +276,6 @@ const UpadteRecipe: React.FC<Props> = () => {
             {categoriesSelect}
             <button
               type="button"
-              title="Ajouter une catégorie"
               onClick={() => handleAddOrRemoveElement('category')}
               className={classes.addCategoryButton}
             >
@@ -284,7 +288,6 @@ const UpadteRecipe: React.FC<Props> = () => {
             {ingredientsForm}
             <button
               type="button"
-              title="Ajouter un ingrédient"
               onClick={() => handleAddOrRemoveElement('ingredient')}
               className={classes.addCategoryButton}
             >
@@ -295,7 +298,6 @@ const UpadteRecipe: React.FC<Props> = () => {
             <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Étapes de préparation</h3>
             {prepStepsForm}
             <button
-              title="Ajouter une étape"
               type="button"
               onClick={() => handleAddOrRemoveElement('prepStep')}
               className={classes.addCategoryButton}

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import classes from './RecipesList.module.css';
 
-import RecipeItem from './recipe-item/RecipeItem';
-import Filters from './filters/Filters';
-import { Recipe } from '../../../../common';
+import RecipeItem from '../recipe-item/RecipeItem';
+import Filters from '../filters/Filters';
+import { Recipe } from '../../../../../common';
 import { useSelector } from 'react-redux';
-import { Dispatch, RootState } from '../../../../store';
-import Pagination from '../../../../components/pagination/Pagination';
+import { Dispatch, RootState } from '../../../../../store';
+import Pagination from '../../../../../components/pagination/Pagination';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useRematchDispatch } from '../../../../hooks/useRematchDispatch';
+import { useRematchDispatch } from '../../../../../hooks/useRematchDispatch';
 
 interface Props {
   userRecipes: boolean;

@@ -38,7 +38,7 @@ const recipe = {
     filters: null,
     title: null,
     pagination: { currentPage: 1 },
-    sort: '_id',
+    sort: '-_id',
   } as State,
 
   reducers: {

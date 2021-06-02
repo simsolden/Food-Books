@@ -15,7 +15,7 @@ import { useRematchDispatch } from '../../../../hooks/useRematchDispatch';
 import { Dispatch, RootState } from '../../../../store';
 import { useSelector } from 'react-redux';
 import { COST_LABELS, DIFFICULTY_LABELS, enumsMap, TYPE_LABELS } from '../../utils/constants';
-import { useHistory } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
 
 interface Props {}
 
@@ -156,6 +156,7 @@ const AddRecipe: React.FC<Props> = () => {
 
   return (
     <div className={classes.container}>
+      <Prompt message="Quitter la page? Tous les changements seront perdus" when={!submitted} />
       <h1>Ajouter une recette</h1>
       <form
         className={classes.form}
@@ -239,7 +240,6 @@ const AddRecipe: React.FC<Props> = () => {
           {categoriesSelect}
           <button
             type="button"
-            title="Ajouter une catégorie"
             onClick={() => handleAddOrRemoveElement('category')}
             className={classes.addCategoryButton}
           >
@@ -252,7 +252,6 @@ const AddRecipe: React.FC<Props> = () => {
           {ingredientsForm}
           <button
             type="button"
-            title="Ajouter un ingrédient"
             onClick={() => handleAddOrRemoveElement('ingredient')}
             className={classes.addCategoryButton}
           >
@@ -263,7 +262,6 @@ const AddRecipe: React.FC<Props> = () => {
           <h3>Étapes de préparation</h3>
           {prepStepsForm}
           <button
-            title="Ajouter une étape"
             type="button"
             onClick={() => handleAddOrRemoveElement('prepStep')}
             className={classes.addCategoryButton}

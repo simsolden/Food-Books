@@ -58,10 +58,10 @@ const AddRecipeModal: React.FC<Props> = ({ onClose, onSave }) => {
           />
           {submitted && !PlanningFormValidator.validateDate(date) && <p style={{ color: 'red' }}></p>}
           <div className={classes.actionButtons}>
-            <button title="annuler" onClick={onClose} className={classes.closeButton}>
+            <button onClick={onClose} className={classes.closeButton}>
               Annuler
             </button>
-            <button title="enregistrer" onClick={handleSave} className={classes.saveButton}>
+            <button onClick={handleSave} className={classes.saveButton}>
               Enregistrer
             </button>
           </div>

@@ -27,7 +27,7 @@ export default class UserFormValidator {
   static validateBirthdate(user: User) {
     return (
       user.birthdate > new Date(+new Date() - 120 * 365 * 24 * 60 * 60 * 1000) &&
-      user.birthdate < new Date(+new Date() - 14 * 365 * 24 * 60 * 60 * 1000)
+      user.birthdate < new Date(+new Date() - 8 * 365 * 24 * 60 * 60 * 1000)
     );
   }
 
