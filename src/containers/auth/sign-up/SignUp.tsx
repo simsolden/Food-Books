@@ -12,20 +12,24 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { materialTheme } from '../../../common/datepicker/datePickerTheme';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
 const SignUp: React.FC<Props> = () => {
   const signUp = useRematchDispatch((dispatch: Dispatch) => dispatch.user.signUp);
   const error = useSelector((state: RootState) => state.user.error);
+  const history = useHistory();
 
   let [user, setUser] = useState<User>(UserFactory.create());
   let [passwordConf, setPasswordConf] = useState('');
   let [submitted, setSubmitted] = useState(false);
 
-  const SignUp = useCallback(() => {
-    signUp(user);
-  }, [signUp, user]);
+  const SignUp = useCallback(async () => {
+    if (await signUp(user)) {
+      history.push('/bienvenue');
+    }
+  }, [history, signUp, user]);
 
   const handleChange = (fieldName: string, inputValue: string | MaterialUiPickersDate) => {
     let tempUser = { ...user };
