@@ -15,13 +15,21 @@ instance.interceptors.response.use(
     if (!err.response) {
       throw new HttpException(500, 'problème de communication avec les serveurs');
     }
+    console.log(err.response.status);
     throw new HttpException(err.response.status, err.response.data.message);
   }
 );
 
-export const attachToken = () => {
-  instance.interceptors.request.use((config) => {
-    config.headers.authorization = `Bearer ${localStorage.getItem('user-token')}`;
+let interceptor: any;
+
+export const attachToken = (token: string) => {
+  interceptor = instance.interceptors.request.use((config) => {
+    config.headers.authorization = `Bearer ${token}`;
     return config;
   });
+};
+
+export const removeToken = () => {
+  console.log(interceptor);
+  instance.interceptors.request.eject(interceptor);
 };
