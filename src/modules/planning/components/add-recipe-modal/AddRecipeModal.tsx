@@ -11,7 +11,7 @@ interface Props {
 }
 
 const AddRecipeModal: React.FC<Props> = ({ onClose, onSave }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(new Date().getTime() + 60 * 60 * 1000));
   const [submitted, setSubmitted] = useState(false);
   const [isRecipeSaved, setIsRecipeSaved] = useState(false);
 
