@@ -15,6 +15,8 @@ And documented here: https://app.swaggerhub.com/apis-docs/foodbooks.fr/FoodBooks
 
 ## Available Scripts
 
+First you must define the `API_SOURCE` IP address in the `config.ts` file inside the `common` folder of the `src` directory.
+
 Once the API is launched on a server, in the project directory, you can run:
 
 ### `yarn install`
