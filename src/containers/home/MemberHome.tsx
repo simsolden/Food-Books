@@ -25,20 +25,20 @@ const MemberHome: React.FC<Props> = () => {
   }, [fetchUserRecipes, fetchRecipes]);
 
   const lastUserRecipes = userRecipes
-    .map((recipe) => {
+    .map((recipe, index) => {
       const slug = `mes-recettes/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
       return (
-        <Link to={slug} style={{ width: 'fit-content' }}>
+        <Link to={slug} style={{ width: 'fit-content' }} key={slug + index}>
           <Card recipe={recipe} key={recipe._id} />
         </Link>
       );
     })
     .slice(undefined, 4);
   const lastRecipes = recipes
-    .map((recipe) => {
+    .map((recipe, index) => {
       const slug = `decouvrir/${recipe.title.toLocaleLowerCase().split(' ').join('-')}_${recipe._id}`;
       return (
-        <Link to={slug}>
+        <Link to={slug} key={slug + index}>
           <Card recipe={recipe} key={recipe._id} />
         </Link>
       );

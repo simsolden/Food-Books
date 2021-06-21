@@ -1,7 +1,6 @@
 import { PlanningRecipe, Recipe } from '../../../common';
-import { Dispatch, RootState } from '../../../store';
+import { Dispatch } from '../../../store';
 import { instance } from '../../../common/axios';
-import Planning from '../../../containers/planning/Planning';
 
 interface planningRecipePayload {
   planningRecipe: {
