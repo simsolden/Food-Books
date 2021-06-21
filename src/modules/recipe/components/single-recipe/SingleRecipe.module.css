@@ -10,6 +10,33 @@
   font-family: Lora;
 }
 
+.printIcon {
+  align-self: center;
+}
+
+.printButton p {
+  margin: 0.5rem;
+}
+
+.printButton {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  background: #c69191;
+  color: white;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 350;
+  border-radius: 0.2rem;
+  outline: none;
+  border: none;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
 .singleRecipe h1 {
   font-weight: 500;
   font-family: Lora;
@@ -45,8 +72,43 @@
   color: #312c2c;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 1300px) {
   .singleRecipe {
     width: 75%;
   }
+}
+
+@media screen and (max-width: 767px) {
+  .printButton {
+    display: none;
+  }
+}
+
+@media print {
+  .singleRecipe {
+    background-color: white;
+    width: 95%;
+    padding-right: 1rem;
+    margin: auto;
+    margin-left: -0.5rem;
+    margin-top: -1.5rem;
+  }
+
+  .printButton {
+    display: none;
+  }
+
+  nav {
+    display: none;
+  }
+}
+
+@page {
+  margin-top: 0;
 }

@@ -7,7 +7,7 @@
 .difficulty,
 .cost {
   display: flex;
-  width: 90%;
+  width: 97.5%;
   justify-content: space-between;
 }
 
