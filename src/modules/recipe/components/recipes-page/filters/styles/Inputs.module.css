@@ -11,4 +11,5 @@
 .checkbox input {
   position: absolute;
   right: 0;
+  accent-color: #bc5252;
 }

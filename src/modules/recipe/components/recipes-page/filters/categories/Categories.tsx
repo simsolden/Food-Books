@@ -32,7 +32,9 @@ const Categories: React.FC<Props> = ({ handleChange, selectedCategories }) => {
       >
         {categories.map((category) => (
           <MenuItem key={category} value={category}>
-            <Checkbox checked={selectedCategories.indexOf(category) > -1} />
+            <Checkbox
+              checked={selectedCategories.indexOf(category) > -1}
+            />
             <ListItemText primary={category} />
           </MenuItem>
         ))}

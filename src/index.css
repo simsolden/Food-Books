@@ -10,6 +10,14 @@ body {
   background-size: cover;
 }
 
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color:#bc5252 !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid #bc5252 !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
