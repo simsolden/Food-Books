@@ -45,7 +45,9 @@ const planning = {
         dispatch.recipe.setIsLoading(false);
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async addPlanningRecipe(payload: planningRecipePayload): Promise<boolean> {
@@ -59,7 +61,9 @@ const planning = {
         return true;
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
 
         return false;
       }
@@ -81,7 +85,9 @@ const planning = {
         return true;
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
         return false;
       }
     },

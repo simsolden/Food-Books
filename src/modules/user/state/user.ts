@@ -109,7 +109,9 @@ const userInfo = {
 
         return true;
       } catch (err) {
-        dispatch.user.setError(err.message);
+        if (err instanceof Error) {
+          dispatch.recipe.setError(err.message);
+        }
         return false;
       }
     },

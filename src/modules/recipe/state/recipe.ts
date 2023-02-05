@@ -77,7 +77,9 @@ const recipe = {
         dispatch.recipe.setCategories({ categories: result.data.result, isLoading: false });
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async fetchRecipes(payload: any, state: RootState): Promise<void> {
@@ -98,7 +100,9 @@ const recipe = {
         dispatch.recipe.setRecipes({ recipes: result.data.result, isLoading: false });
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async fetchUserRecipes(payload: any, state: RootState): Promise<void> {
@@ -120,7 +124,9 @@ const recipe = {
         dispatch.recipe.setUserRecipes({ recipes: result.data.result, isLoading: false });
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async fetchOneRecipe(id: string): Promise<void> {
@@ -134,7 +140,9 @@ const recipe = {
         dispatch.recipe.setSingleRecipe(result.data.result);
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async createRecipe(recipePayload: Recipe): Promise<Recipe | void> {
@@ -150,7 +158,9 @@ const recipe = {
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
 
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async deleteRecipe(recipeId: string): Promise<void> {
@@ -162,7 +172,9 @@ const recipe = {
 
         dispatch.recipe.setIsLoading(false);
       } catch (error) {
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async updateRecipe(recipePayload: Recipe): Promise<Recipe | void> {
@@ -177,7 +189,9 @@ const recipe = {
         return result.data.result;
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async uploadPicture(picture: File): Promise<string | void> {
@@ -199,7 +213,9 @@ const recipe = {
         return result.data;
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
     async updatePicture(picture: File, state: RootState): Promise<string | void> {
@@ -222,7 +238,9 @@ const recipe = {
         return result.data;
       } catch (error) {
         dispatch.recipe.setIsLoading(false);
-        dispatch.recipe.setError(error.message);
+        if (error instanceof Error) {
+          dispatch.recipe.setError(error.message);
+        }
       }
     },
   }),
